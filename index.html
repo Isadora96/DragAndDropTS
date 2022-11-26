@@ -9,12 +9,12 @@
     <script src="dist/app.js" defer></script>
   </head>
   <body>
-    <template id="project-input">
+    <!-- <template id="project-input"> -->
       <form>
         <div class="form-control">
           <label for="title">Title</label>
           <input type="text" id="title" />
-          <span class="is-valid" id="valid-title"></span>
+          <span class="is-valid" id=""></span>
         </div>
         <div class="form-control">
           <label for="description">Description</label>
@@ -26,20 +26,26 @@
           <input type="number" id="people" step="1" min="0" max="10" />
           <span class="is-valid"></span>
         </div>
+        <div>
+            <label for="active">Active</label>
+            <input type="checkbox" name="active" id="check">
+        </div>
         <button type="submit">ADD PROJECT</button>
       </form>
-    </template>
-    <template id="single-project">
-        <li></li>
-    </template>
-    <template id="project-list">
-      <section class="projects">
+    <!-- </template> -->
+    <!-- <template id="single-project"> -->
+        <ul>
+            <!-- <li></li> -->
+        </ul>
+    <!-- </template> -->
+    <!-- <template id="project-list"> -->
+      <section class="projects" draggable="true">
         <header>
           <h2></h2>
         </header>
         <ul></ul>
       </section>
-    </template>
+    <!-- </template> -->
     <div id="app"></div>
   </body>
 </html>
