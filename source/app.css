@@ -20,6 +20,7 @@
   
   label {
     font-weight: bold;
+    padding-top: 0.4rem;
   }
   
   input,
@@ -130,4 +131,6 @@
   .is-valid {
     color: red;
     display: block;
+    font-size: 0.5rem;
+    margin-top: -0.4rem;
   }
