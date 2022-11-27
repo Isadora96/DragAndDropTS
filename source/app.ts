@@ -18,6 +18,41 @@ function autobind(target: any, methodName: any, descriptor: PropertyDescriptor) 
     return adjDescriptor;
 }
 
+interface Validatable {
+    value: string | number;
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+    min?: number;
+    max?: number;
+}
+
+function validate(validatableInput: Validatable) {
+    let isValid = true;
+    if(validatableInput.required) {
+        isValid = isValid && validatableInput.value.toString().trim().length !== 0;
+    }
+
+    //!= null check both undefined and null values
+    if(validatableInput.minLength != null && typeof validatableInput.value === 'string') {
+        isValid = isValid && validatableInput.value.length >= validatableInput.minLength;
+    }
+
+    if(validatableInput.maxLength != null && typeof validatableInput.value === 'string') {
+        isValid = isValid && validatableInput.value.length <= validatableInput.maxLength;
+    }
+
+    if(validatableInput.min != null && typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value >= validatableInput.min;
+    }
+
+    if(validatableInput.max != null && typeof validatableInput.value === 'number') {
+        isValid = isValid && validatableInput.value <= validatableInput.max;
+    }
+
+    return isValid;
+}
+
 class ProjectInput {
     templateElement: HTMLTemplateElement;
     hostElement: HTMLDivElement;
@@ -51,14 +86,49 @@ class ProjectInput {
         const enteredPeople = this.peopleEl.value;
         const isvalid = this.isvalidEl;
 
-        if(enteredTitle.trim().length === 0 && enteredDescription.trim().length ===  0 && enteredPeople.trim().length === 0) {
-            isvalid.forEach((el) => el.innerHTML = 'Invalid input, please try again!!');
+        const titleValidatable: Validatable = {
+            value: enteredTitle,
+            required: true,
+            minLength: 3
+        };
+
+        const descriptionValidatable: Validatable = {
+            value: enteredDescription,
+            required: true,
+            minLength: 5
+        };
+
+        const peopleValidatable: Validatable = {
+            value: enteredPeople,
+            required: true,
+            min: 1,
+            max: 5
+        };
+
+        if(!validate(titleValidatable) || !validate(descriptionValidatable) || !validate(peopleValidatable))
+        {
+            isvalid.forEach((el) => {
+                if(el.getAttribute('id') === 'titleSpan' && enteredTitle.length === 0) {
+                    el.innerHTML = 'Invalid input, please try again!!!';
+                }else if(el.getAttribute('id') === 'titleSpan' && enteredTitle.length < 5) {
+                    el.innerHTML = 'Text must have at least 5 letters!!!';
+                }else if(el.getAttribute('id') === 'descriptionSpan' && enteredDescription.length === 0) {
+                    el.innerHTML = 'Invalid input, please try again!!!';
+                }else if(el.getAttribute('id') === 'descriptionSpan' && enteredDescription.length < 5) {
+                    el.innerHTML = 'Text must have at least 5 letters!!!';
+                } else if(el.getAttribute('id') === 'peopleSpan' && +enteredPeople < 1) {
+                    el.innerHTML = 'You need at least 1 person!!!';
+                } else {
+                    el.innerHTML = '';
+                }
+            });
             return;
         } else {
             isvalid.forEach((el) => el.innerHTML = '');
             return [enteredTitle, enteredDescription, +enteredPeople];
         }
     }
+
 
     private clearInputs() {
         this.titleEl.value = '';
