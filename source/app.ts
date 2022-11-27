@@ -1,3 +1,23 @@
+//decorator is a func
+function autobind(target: any, methodName: any, descriptor: PropertyDescriptor) {
+    //target = ProjectInput Class
+    //methodName = 'submitHandler'
+    //descriptor = object
+    //descriptor.value = function submitHandler(event) { event.preventDefault(); console.log(this.titleEl.value); }
+
+    const originalMethod = descriptor.value;
+    const adjDescriptor: PropertyDescriptor = {
+        configurable: true,
+        get() {
+            //boundFn = function submitHandler() { [native code] }
+            //this = ProjectInput clsss
+            const boundFn = originalMethod.bind(this);
+            return boundFn;
+        }
+    };
+    return adjDescriptor;
+}
+
 class ProjectInput {
     templateElement: HTMLTemplateElement;
     hostElement: HTMLDivElement;
@@ -23,13 +43,14 @@ class ProjectInput {
         this.attach();
     }
 
+    @autobind
     private submitHandler(event :Event) {
         event.preventDefault();
         console.log(this.titleEl.value);
     }
     private configure() {
         //bind to the class
-        this.element.addEventListener("submit", this.submitHandler.bind(this));
+        this.element.addEventListener("submit", this.submitHandler);
     }
 
     private attach() {
