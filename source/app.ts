@@ -2,6 +2,9 @@ class ProjectInput {
     templateElement: HTMLTemplateElement;
     hostElement: HTMLDivElement;
     element: HTMLFormElement;
+    titleEl: HTMLInputElement;
+    descriptionEl:HTMLInputElement;
+    peopleEl: HTMLInputElement;
 
     constructor() {
         this.templateElement = document.getElementById('project-input')! as HTMLTemplateElement;
@@ -10,11 +13,48 @@ class ProjectInput {
         const importedNode = document.importNode(this.templateElement.content, true);
 
         this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element.id = 'user-input';
+
+        this.titleEl = this.element.querySelector('#title') as HTMLInputElement;
+        this.descriptionEl = this.element.querySelector('#description') as HTMLInputElement;
+        this.peopleEl = this.element.querySelector('#people') as HTMLInputElement;
+
+        this.configure();
         this.attach();
+    }
+
+    private submitHandler(event :Event) {
+        event.preventDefault();
+        console.log(this.titleEl.value);
+    }
+    private configure() {
+        //bind to the class
+        this.element.addEventListener("submit", this.submitHandler.bind(this));
     }
 
     private attach() {
         this.hostElement.insertAdjacentElement('afterbegin', this.element);
+
+    }
+}
+
+class ProjectInput2 {
+    templateElement: HTMLTemplateElement;
+    hostElement: HTMLFormElement;
+    element: HTMLLIElement;
+
+    constructor() {
+        this.templateElement = document.getElementById('single-project')! as HTMLTemplateElement;
+        this.hostElement = document.querySelector('form')! as HTMLFormElement;
+
+        const importedNode = document.importNode(this.templateElement.content, true);
+
+        this.element = importedNode.firstElementChild as HTMLLIElement;
+        this.attach();
+    }
+
+    private attach() {
+        this.hostElement.insertAdjacentElement('afterend', this.element);
 
     }
 }
@@ -34,49 +74,9 @@ class Project {
 }
 
 const prjInput = new ProjectInput();
-const titleEl = prjInput.element.querySelector('#title') as HTMLInputElement;
-const descriptionEl = prjInput.element.querySelector('#description') as HTMLInputElement;
-const peopleEl = prjInput.element.querySelector('#people') as HTMLInputElement;
-const isvalidEl = prjInput.element.querySelector('.is-valid') as unknown as NodeList;
-const ulEl = prjInput.element.querySelector('ul') as HTMLElement;
-const check = prjInput.element.querySelector('#check') as HTMLInputElement;
 
-prjInput.element.addEventListener('submit', event => {
-    event.preventDefault();
-    const title = titleEl.value;
-    const description = descriptionEl.value;
-    const people = +peopleEl.value;
-    const active = check.checked;
 
-    // if(!title && !description && !people){
-    //     isvalidEl.forEach((el: any) => {
-    //         el.textContent = 'Please provide a valid input value!!!'
-    //     });
-    //     return;
-    // }
-    const newCourse = new Project(title, description, people, active);
 
-    // Object.values(newCourse).forEach((el: any) => {
-    //     const li = prjInput.element.querySelector('li')! as HTMLLIElement;
-    //     const ht = prjInput.element.querySelector('#single-project') as HTMLTemplateElement;
-    //     li.innerHTML = el;
-    //     ht.appendChild(li);
-    // })
-    // localStorage.setItem('items', JSON.stringify(newCourse));
-    // titleEl.value = ''
-    // descriptionEl.value = ''
-    // peopleEl.value = ''
-    
-})
-
-// let items = JSON.parse(localStorage.getItem('items')! as string);
-// if(items){
-//     Object.values(items).forEach((el: any) => {
-//         const li = document.createElement('li');
-//         li.innerHTML = el;
-//         ulEl.appendChild(li);
-//     })
-// }
 
 
 
