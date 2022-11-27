@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>ProjectManager</title>
-    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="source/app.css" />
     <script src="dist/app.js" defer></script>
   </head>
   <body>
-    <!-- <template id="project-input"> -->
+    <template id="project-input">
       <form>
         <div class="form-control">
           <label for="title">Title</label>
@@ -32,20 +32,18 @@
         </div>
         <button type="submit">ADD PROJECT</button>
       </form>
-    <!-- </template> -->
-    <!-- <template id="single-project"> -->
-        <ul>
-            <!-- <li></li> -->
-        </ul>
-    <!-- </template> -->
-    <!-- <template id="project-list"> -->
+    </template>
+    <template id="single-project">
+        <li></li>
+    </template>
+    <template id="project-list">
       <section class="projects" draggable="true">
         <header>
           <h2></h2>
         </header>
         <ul></ul>
       </section>
-    <!-- </template> -->
+    </template>
     <div id="app"></div>
   </body>
 </html>
