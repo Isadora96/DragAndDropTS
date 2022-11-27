@@ -25,6 +25,7 @@ class ProjectInput {
     titleEl: HTMLInputElement;
     descriptionEl:HTMLInputElement;
     peopleEl: HTMLInputElement;
+    isvalidEl: NodeListOf<HTMLSpanElement>;
 
     constructor() {
         this.templateElement = document.getElementById('project-input')! as HTMLTemplateElement;
@@ -38,18 +39,46 @@ class ProjectInput {
         this.titleEl = this.element.querySelector('#title') as HTMLInputElement;
         this.descriptionEl = this.element.querySelector('#description') as HTMLInputElement;
         this.peopleEl = this.element.querySelector('#people') as HTMLInputElement;
+        this.isvalidEl = this.element.querySelectorAll('span') as NodeListOf<HTMLSpanElement>;
 
         this.configure();
         this.attach();
     }
 
+    private gatherUserInput(): [string, string, number] | void {
+        const enteredTitle = this.titleEl.value;
+        const enteredDescription = this.descriptionEl.value;
+        const enteredPeople = this.peopleEl.value;
+        const isvalid = this.isvalidEl;
+
+        if(enteredTitle.trim().length === 0 && enteredDescription.trim().length ===  0 && enteredPeople.trim().length === 0) {
+            isvalid.forEach((el) => el.innerHTML = 'Invalid input, please try again!!');
+            return;
+        } else {
+            isvalid.forEach((el) => el.innerHTML = '');
+            return [enteredTitle, enteredDescription, +enteredPeople];
+        }
+    }
+
+    private clearInputs() {
+        this.titleEl.value = '';
+        this.descriptionEl.value = '';
+        this.peopleEl.value = '';
+    }
+
     @autobind
     private submitHandler(event :Event) {
         event.preventDefault();
-        console.log(this.titleEl.value);
+        const userInput = this.gatherUserInput();
+        if(Array.isArray(userInput)) {
+            const [title, desc, people] = userInput;
+            console.log(title, desc, people);
+            localStorage.setItem('items', JSON.stringify(userInput));
+            this.clearInputs();
+        }
     }
+
     private configure() {
-        //bind to the class
         this.element.addEventListener("submit", this.submitHandler);
     }
 
