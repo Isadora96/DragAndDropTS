@@ -1,5 +1,6 @@
 // Project State class
 class ProjectState {
+    private listeners: any[] = [];
     private projects: any[] = [];
     private static instance: ProjectState;
 
@@ -11,6 +12,12 @@ class ProjectState {
         return this.instance;
     }
 
+    addListener(listnerFunc: Function) {
+        console.log('addListener', listnerFunc);
+        //listerFunc = (project) => {}
+        this.listeners.push(listnerFunc);
+    }
+
     addProject(title: string, description: string, numOfPeople: number) {
         const newProject = {
             id: Math.random().toString(),
@@ -19,7 +26,10 @@ class ProjectState {
             numOfPeople: numOfPeople
         }
         this.projects.push(newProject);
-        console.log(this.projects);
+        for(const listnerFunc of this.listeners) {
+            //pass the array as a copy of the original array.
+            listnerFunc(this.projects.slice()); // call the func (project) => {}
+        }
     }
 }
 
@@ -188,17 +198,38 @@ class ProjectList {
     templateElement: HTMLTemplateElement;
     hostElement: HTMLDivElement;
     element: HTMLElement;
+    assignedProjects: any[];
 
     constructor(private type: 'active' | 'finished') {
         this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
         this.hostElement = document.querySelector('#app')! as HTMLDivElement;
+        this.assignedProjects = [];
 
         const importedNode = document.importNode(this.templateElement.content, true);
 
         this.element = importedNode.firstElementChild as HTMLElement;
         this.element.id = `${type}-projects`
+
+        projectState.addListener((project: any[]) => {
+            //project = this.projects
+            this.assignedProjects = project;
+            this.renderProjects();
+        })
         this.attach();
         this.renderContent();
+    }
+
+    private renderProjects() {
+        const listEl = document.getElementById(`${this.type}-project-list`)! as HTMLUListElement;
+        for(const prjItem of this.assignedProjects){
+            delete prjItem['id']
+            Object.values(prjItem).forEach((el: any) => {
+                    const liEl = document.createElement('li')! as HTMLLIElement;
+                    liEl.innerHTML = el
+                    listEl?.appendChild(liEl);
+            })
+        }
+        return listEl;
     }
 
     private renderContent() {
