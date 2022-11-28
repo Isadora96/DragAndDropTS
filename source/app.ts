@@ -129,7 +129,6 @@ class ProjectInput {
         }
     }
 
-
     private clearInputs() {
         this.titleEl.value = '';
         this.descriptionEl.value = '';
@@ -158,42 +157,37 @@ class ProjectInput {
     }
 }
 
-class ProjectInput2 {
+class ProjectList {
     templateElement: HTMLTemplateElement;
-    hostElement: HTMLFormElement;
-    element: HTMLLIElement;
+    hostElement: HTMLDivElement;
+    element: HTMLElement;
 
-    constructor() {
-        this.templateElement = document.getElementById('single-project')! as HTMLTemplateElement;
-        this.hostElement = document.querySelector('form')! as HTMLFormElement;
+    constructor(private type: 'active' | 'finished') {
+        this.templateElement = document.getElementById('project-list')! as HTMLTemplateElement;
+        this.hostElement = document.querySelector('#app')! as HTMLDivElement;
 
         const importedNode = document.importNode(this.templateElement.content, true);
 
-        this.element = importedNode.firstElementChild as HTMLLIElement;
+        this.element = importedNode.firstElementChild as HTMLElement;
+        this.element.id = `${type}-projects`
         this.attach();
+        this.renderContent();
+    }
+
+    private renderContent() {
+        const listId = `${this.type}-project-list`;
+        this.element.querySelector('ul')!.id = listId;
+        this.element.querySelector('h2')!.textContent = this.type.toUpperCase() + ' PROJECTS';
     }
 
     private attach() {
-        this.hostElement.insertAdjacentElement('afterend', this.element);
-
-    }
-}
-
-class Project {
-    title: string;
-    description: string;
-    people: number;
-    active: boolean;
-
-    constructor (t: string, d: string, p: number, a: boolean) {
-        this.title = t;
-        this.description = d;
-        this.people = p;
-        this.active = a;
+        this.hostElement.insertAdjacentElement('beforeend', this.element);
     }
 }
 
 const prjInput = new ProjectInput();
+const activePrjList = new ProjectList('active');
+const finishedPrjList = new ProjectList('finished');
 
 
 
