@@ -212,12 +212,6 @@ class ProjectList {
     }
 }
 
+const prjInput = new ProjectInput();
 const activePrjList = new ProjectList('active');
 const finishedPrjList = new ProjectList('finished');
-const x = new ProjectInput()
-
-
-
-
-
-
