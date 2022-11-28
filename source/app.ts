@@ -1,3 +1,30 @@
+// Project State class
+class ProjectState {
+    private projects: any[] = [];
+    private static instance: ProjectState;
+
+    private constructor () {}
+
+    static getIstance() {
+        if(this.instance) { return this.instance;}
+        this.instance = new ProjectState();
+        return this.instance;
+    }
+
+    addProject(title: string, description: string, numOfPeople: number) {
+        const newProject = {
+            id: Math.random().toString(),
+            title: title,
+            description: description,
+            numOfPeople: numOfPeople
+        }
+        this.projects.push(newProject);
+        console.log(this.projects);
+    }
+}
+
+const projectState = ProjectState.getIstance(); 
+
 //decorator is a func
 function autobind(target: any, methodName: any, descriptor: PropertyDescriptor) {
     //target = ProjectInput Class
@@ -141,7 +168,7 @@ class ProjectInput {
         const userInput = this.gatherUserInput();
         if(Array.isArray(userInput)) {
             const [title, desc, people] = userInput;
-            console.log(title, desc, people);
+            projectState.addProject(title, desc, people)
             localStorage.setItem('items', JSON.stringify(userInput));
             this.clearInputs();
         }
@@ -185,9 +212,9 @@ class ProjectList {
     }
 }
 
-const prjInput = new ProjectInput();
 const activePrjList = new ProjectList('active');
 const finishedPrjList = new ProjectList('finished');
+const x = new ProjectInput()
 
 
 
