@@ -1,5 +1,5 @@
 //decorator is a func
-export function autobind(_: any, _1: any, descriptor: PropertyDescriptor) {
+export function autobind(_: any, _1: string, descriptor: PropertyDescriptor) {
 //target = ProjectInput Class
 //methodName = 'submitHandler'
 //descriptor = object
