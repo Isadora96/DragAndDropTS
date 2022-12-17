@@ -44,6 +44,24 @@ class Project(Resource):
             })
         return Response(response=json.dumps('Project added sucessfully!'), status=201)
 
+    @staticmethod
+    def put():
+        project_id = str(request.form['project_id'])
+        project = db.project_active.find_one({"_id": ObjectId(project_id)})
+        if project:
+            db.project_active.update_one({"_id": ObjectId(project_id)}, {
+                '$set': {
+                    'title': request.form['title'],
+                    'description': request.form['description'],
+                    'people': int(request.form['people']),
+                    'staus': request.form['staus'],
+                    'updated_at': GetDate().date()
+                }
+            })
+            return Response(response=json.dumps('Project updated sucessfully!'), status=202)
+        else:
+            return Response(response=json.dumps('That project does not exist'), status=404)
+
 
 class SingleProject(Resource):
 
@@ -55,14 +73,17 @@ class SingleProject(Resource):
 
 class AddProject():
 
-    date = datetime.datetime.now()
-
     def __init__(self, title: str, description: str, people: int, status: str):
         self.title = title,
         self.description = description,
         self.people = people,
         self.status = status
-        self.created_at = self._get_date()
+        self.created_at = GetDate().date()
 
-    def _get_date(self):
-        return f'{str(self.date.month)}/{str(self.date.day)}/{str(self.date.year)}'
+class GetDate():
+
+    date = datetime.datetime.now()
+
+    def date(self):
+        return f'{str(self.date.year)}-{str(self.date.month)}-{str(self.date.day)}'
+
