@@ -47,7 +47,8 @@ class Project(Resource):
 
 class SingleProject(Resource):
 
-    def get(self, project_id:str):
+    @staticmethod
+    def get(project_id:str):
         single_proj = db.project_active.find_one({"_id": ObjectId(project_id)})
         return json.loads(json_util.dumps(single_proj))
 
