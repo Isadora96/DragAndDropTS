@@ -22,7 +22,8 @@ class Project(Resource):
 
     @staticmethod
     def get():
-        pass
+        data = db.project_active.find()
+        return json.loads(json_util.dumps(data))
 
 
     @staticmethod
@@ -37,7 +38,7 @@ class Project(Resource):
             "title": new_project.title, 
             "description": new_project.description, 
             "people": new_project.people,
-            "staus": new_project.status,
+            "status": new_project.status,
             "created_at": new_project.created_at
             })
         return Response(response=json.dumps('Project added sucessfully!'), status=201)
