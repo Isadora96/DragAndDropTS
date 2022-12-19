@@ -1,10 +1,11 @@
 
 import json
-import datetime
 from bson import json_util
 from bson.objectid import ObjectId
 from flask import Response, request
 from flask_restful import Resource
+from server.classes.add_project import AddProject
+from server.classes.get_date import GetDate
 from server.db.db import db
 
 
@@ -36,8 +37,9 @@ class ActiveProject(Resource):
     @staticmethod
     def put():
         project_id = str(request.form['project_id'])
+        project_status = str(request.form['staus'])
         project = db.project_active.find_one({"_id": ObjectId(project_id)})
-        if project:
+        if project and project_status == 'active':
             db.project_active.update_one({"_id": ObjectId(project_id)}, {
                 '$set': {
                     'title': request.form['title'],
@@ -48,6 +50,19 @@ class ActiveProject(Resource):
                 }
             })
             return Response(response=json.dumps('Project updated sucessfully!'), status=202)
+        elif project and project_status == 'finished':
+            if not 'project_finished' in db.list_collection_names():
+                db.create_collection('project_finished')
+            db.project_finished.insert_one({
+                'title': request.form['title'],
+                'description': request.form['description'],
+                'people': int(request.form['people']),
+                'staus': request.form['staus'],
+                'created_at': project.get('created_at'),
+                'updated_at': GetDate().date()
+            })
+            db.project_active.delete_one({"_id": ObjectId(project_id)})
+            return Response(response=json.dumps('Project updated sucessfully!'), status=202)
         else:
             return Response(response=json.dumps('That project does not exist'), status=404)
 
@@ -56,21 +71,3 @@ class ActiveProject(Resource):
         proj = db.project_active.drop()
         if not proj:
             return Response(response=json.dumps('All projects deleted sucessfully!'), status=202)
-
-
-class AddProject():
-
-    def __init__(self, title: str, description: str, people: int, status: str):
-        self.title = title,
-        self.description = description,
-        self.people = people,
-        self.status = status
-        self.created_at = GetDate().date()
-
-class GetDate():
-
-    get_date = datetime.datetime.now()
-
-    def date(self):
-        return f'{str(self.get_date.year)}-{str(self.get_date.month)}-{str(self.get_date.day)}'
-
