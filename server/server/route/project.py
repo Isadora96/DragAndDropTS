@@ -62,14 +62,31 @@ class Project(Resource):
         else:
             return Response(response=json.dumps('That project does not exist'), status=404)
 
+    @staticmethod
+    def delete():
+        proj = db.project_active.drop()
+        if not proj:
+            return Response(response=json.dumps('All projects deleted sucessfully!'), status=202)
+
 
 class SingleProject(Resource):
 
     @staticmethod
     def get(project_id:str):
         single_proj = db.project_active.find_one({"_id": ObjectId(project_id)})
-        return json.loads(json_util.dumps(single_proj))
+        if single_proj:
+            return json.loads(json_util.dumps(single_proj))
 
+        return Response(response=json.dumps('That project does not exist'), status=404) 
+
+    @staticmethod
+    def delete(project_id:str):
+        single_proj = db.project_active.find_one({"_id": ObjectId(project_id)})
+        if single_proj:
+            db.project_active.delete_one({"_id": ObjectId(project_id)})
+            return Response(response=json.dumps('Project deleted sucessfully!'), status=202)
+               
+        return Response(response=json.dumps('That project does not exist'), status=404)
 
 class AddProject():
 
@@ -82,8 +99,8 @@ class AddProject():
 
 class GetDate():
 
-    date = datetime.datetime.now()
+    get_date = datetime.datetime.now()
 
     def date(self):
-        return f'{str(self.date.year)}-{str(self.date.month)}-{str(self.date.day)}'
+        return f'{str(self.get_date.year)}-{str(self.get_date.month)}-{str(self.get_date.day)}'
 
