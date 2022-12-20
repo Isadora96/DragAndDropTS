@@ -70,4 +70,4 @@ class ActiveProject(Resource):
     def delete():
         proj = db.project_active.drop()
         if not proj:
-            return Response(response=json.dumps('All projects deleted sucessfully!'), status=202)
+            return Response(response=json.dumps('All actives projects deleted sucessfully!'), status=202)
