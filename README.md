@@ -1,1 +1,5 @@
-# CRUD API - Python/pymongo and MongoDB
+# CRUD API 
+
+ - Python/pymongo
+ - Flask/Flaskrestful
+ - MongoDB
