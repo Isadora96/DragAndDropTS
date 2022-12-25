@@ -2,7 +2,7 @@
 import json
 from bson import json_util
 from bson.objectid import ObjectId
-from flask import Response, request
+from flask import Response, request, abort
 from flask_restful import Resource
 from server.classes.add_project import AddProject
 from server.classes.get_date import GetDate
@@ -25,6 +25,8 @@ class ActiveProject(Resource):
         people = project_info.get('people')
         status = project_info.get('status')
         new_project = AddProject(title, description, people, status)
+        if not title or not description or not people or not status:
+            abort(400, 'Project title, description, people or status missing!')
         db.project_active.insert_one({
             "title": new_project.title, 
             "description": new_project.description, 
