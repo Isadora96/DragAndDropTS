@@ -23,10 +23,13 @@ class ActiveProject(Resource):
         title = project_info.get('title')
         description = project_info.get('description')
         people = project_info.get('people')
-        status = project_info.get('status')
-        new_project = AddProject(title, description, people, status)
-        if not title or not description or not people or not status:
-            abort(400, 'Project title, description, people or status missing!')
+        new_project = AddProject(title, description, people, 'active')
+        if not title or not description:
+            abort(400, 'Project title, description or people missing!')
+        elif people < 1:
+            abort(400, 'Total people must be at least 1!')
+        elif len(project_info) > 3:
+            abort(400, 'Please, provide only project title, description and people!')
         db.project_active.insert_one({
             "title": new_project.title, 
             "description": new_project.description, 
