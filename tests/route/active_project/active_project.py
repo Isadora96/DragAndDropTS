@@ -10,11 +10,11 @@ class ActiveProjectTestCase(unittest.TestCase):
     @patch('server.route.active_project.active_project.db')
     def test_get_method_returns__data(self, db_mock):
 
-        db_mock.return_value.project_active.find.return_value = {}
+        db_mock.project_active.find.return_value = [{"_id": "fakeId", "title": "fake title"}]
 
         data = ActiveProject.get()
 
-        self.assertEqual(data, {})
+        self.assertEqual(data, [{"_id": "fakeId", "title": "fake title"}])
 
     @patch('server.route.active_project.active_project.request')
     @patch('server.route.active_project.active_project.db')
@@ -73,3 +73,31 @@ class ActiveProjectTestCase(unittest.TestCase):
         with self.assertRaises(BadRequest):
             ActiveProject.post()        
             self.assertEqual(ActiveProject.post().response.response, 'Please, provide only project title, description and people!')
+
+    @patch('server.route.active_project.active_project.request')
+    @patch('server.route.active_project.active_project.db')
+    @patch('server.route.active_project.active_project.ObjectId')
+    def test_put_method_return_status__202(self, ObjectId_mock, db_mock, request_mock):
+        pass
+
+    @patch('server.route.active_project.active_project.db')
+    def test_delete_method_return_status__202(self, db_mock):
+        
+        db_mock.project_active.find.return_value = [{"_id": {"fakeId"}, "title": ["fake title"]}]
+        db_mock.project_active.drop.return_value = None
+
+        response = ActiveProject.delete()
+
+        self.assertEqual(response.status, '202 ACCEPTED')
+        self.assertEqual(response.response, [b'"All actives projects deleted sucessfully!"'])
+
+    @patch('server.route.active_project.active_project.db')
+    def test_delete_method_return_status__404(self, db_mock):
+        
+        db_mock.project_active.find.return_value = None
+        
+        response = ActiveProject.delete()
+
+        self.assertEqual(response.status, '404 NOT FOUND')
+        self.assertEqual(response.response, [b'"Nothing to delete!"'])
+
