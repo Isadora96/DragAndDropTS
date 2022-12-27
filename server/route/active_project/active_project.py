@@ -41,8 +41,8 @@ class ActiveProject(Resource):
 
     @staticmethod
     def put():
-        project_id = str(request.form['project_id'])
-        project_status = str(request.form['staus'])
+        project_id = request.form['project_id']
+        project_status = request.form['status']
         project = db.project_active.find_one({"_id": ObjectId(project_id)})
         if project and project_status == 'active':
             db.project_active.update_one({"_id": ObjectId(project_id)}, {
@@ -50,7 +50,7 @@ class ActiveProject(Resource):
                     'title': request.form['title'],
                     'description': request.form['description'],
                     'people': int(request.form['people']),
-                    'staus': request.form['staus'],
+                    'status': request.form['status'],
                     'updated_at': GetDate().date()
                 }
             })
@@ -62,7 +62,7 @@ class ActiveProject(Resource):
                 'title': request.form['title'],
                 'description': request.form['description'],
                 'people': int(request.form['people']),
-                'staus': request.form['staus'],
+                'status': request.form['status'],
                 'created_at': project.get('created_at'),
                 'updated_at': GetDate().date()
             })
@@ -73,6 +73,10 @@ class ActiveProject(Resource):
 
     @staticmethod
     def delete():
+        data = db.project_active.find()
+        has_project = json.loads(json_util.dumps(data))
+        if not has_project:
+            return Response(response=json.dumps('Nothing to delete!'), status=404)
         proj = db.project_active.drop()
         if not proj:
             return Response(response=json.dumps('All actives projects deleted sucessfully!'), status=202)
