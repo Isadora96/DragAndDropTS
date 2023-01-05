@@ -1,6 +1,3 @@
-# CRUD API 
-
-
 # CRUD API Python
 
 Mini server-side application with python, flask and mongoDB. 
