@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_marshmallow import Marshmallow
 from flask_restful import Api, Resource
 from server.route.active_project.active_project import ActiveProject
 from server.route.active_project.single_active_project import SingleActiveProject
