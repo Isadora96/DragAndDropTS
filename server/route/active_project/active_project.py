@@ -41,15 +41,16 @@ class ActiveProject(Resource):
 
     @staticmethod
     def put():
-        project_id = request.form['project_id']
+        project_id = request.form.get('project_id')
         project_status = request.form['status']
+        people = request.form['people']
         project = db.project_active.find_one({"_id": ObjectId(project_id)})
-        if project and project_status == 'active':
+        if project and project_status == 'active' and int(people) >= 1:
             db.project_active.update_one({"_id": ObjectId(project_id)}, {
                 '$set': {
                     'title': request.form['title'],
                     'description': request.form['description'],
-                    'people': int(request.form['people']),
+                    'people': int(people),
                     'status': request.form['status'],
                     'updated_at': GetDate().date()
                 }

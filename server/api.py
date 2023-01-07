@@ -1,14 +1,14 @@
 from flask import Flask
-from flask_restful import Api, Resource
+from flask_restful import Api
+
 from server.route.active_project.active_project import ActiveProject
 from server.route.active_project.single_active_project import SingleActiveProject
 from server.route.finished_project.finished_project import FinishedProject
 from server.route.finished_project.finished_single_project import SingleFinishedProject
 
+
 APP = Flask(__name__)
 API = Api(APP)
-PORT = 8080
-
 
 API.add_resource(ActiveProject, '/active_project')
 API.add_resource(SingleActiveProject, '/single_active_project/<string:project_id>')

@@ -1,12 +1,20 @@
 import pymongo
+import certifi
+import os
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+from urllib.parse import quote_plus
+
+username = quote_plus(str(os.environ.get('username')))
+password = quote_plus(str(os.environ.get('username')))
+
+myclient = pymongo.MongoClient(f"mongodb+srv://{username}:{password}@cluster0.xrhek5n.mongodb.net/?retryWrites=true&w=majority", 
+                                tlsCAFile=certifi.where())
 
 try:
-    print(myclient.server_info())
+    print(myclient.get_database('projects'))
 except Exception:
     print("Unable to connect to the server.")
 
 #projects -> my database
 #project_active -> my collection
-db = myclient['projects']
+db = myclient.get_database('projects')

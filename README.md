@@ -7,8 +7,7 @@ Basic operations Create, Read, Update and Delete for a person selling courses. I
 
 ## Running locally
 
-- mongodb
-- mongosh
+- mongodb Atlas (create an account)
 - python version 3.7
 
 Clone the project
@@ -28,11 +27,13 @@ Creation of the Virtual Environment (VENV)
     pip install -r requirements.txt 
 ```
 
-Mongodb must be running locally
+ ### environment variables
+- Make a copy of `.env-example` as `.env`
+- Set the variables required inside `.env`
 
-```
- mongodb://127.0.0.1:27017
-````
+```sh
+export $(cat .env | xargs)
+``` 
 
  To start the API in the terminal run the command: 
 
@@ -129,5 +130,4 @@ To run all the tests, run the following command
 ```bash
   python -m unittest discover -v -s "tests/route/active_project" -p "*.py"
 ```
-
 
