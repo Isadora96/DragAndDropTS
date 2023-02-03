@@ -1,5 +1,6 @@
 import unittest
-from unittest.mock import patch
+import requests
+from unittest.mock import patch, Mock
 from werkzeug.exceptions import BadRequest
 
 from server.route.active_project.active_project import ActiveProject
@@ -19,17 +20,26 @@ class ActiveProjectTestCase(unittest.TestCase):
     @patch('server.route.active_project.active_project.request')
     @patch('server.route.active_project.active_project.db')
     def test_post_method_returns_status__201(self, db_mock, request_mock):
-
+        request_mock = Mock()
+        request_mock.status_code = 201
+        
         request_mock.json = {
             "title": "title",
             "description": "description",
             "people": 1,
         }
+        data = {
+            "title": "title",
+            "description": "description",
+            "people": 1,
+        }
         
-        response = ActiveProject.post()
+        response = requests.post('http://localhost:5000/active_project', data=data)
 
         self.assertEqual(response.status, '201 CREATED')
         self.assertEqual(response.response, [b'"Project added sucessfully!"'])
+        
+        request_mock.assert_called_with('http://localhost:5000/active_project', data=data)
 
     @patch('server.route.active_project.active_project.request')
     @patch('server.route.active_project.active_project.db')
