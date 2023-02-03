@@ -1,5 +1,5 @@
 import unittest
-import requests
+import request
 from unittest.mock import patch, Mock
 from werkzeug.exceptions import BadRequest
 
@@ -34,7 +34,7 @@ class ActiveProjectTestCase(unittest.TestCase):
             "people": 1,
         }
         
-        response = requests.post('http://localhost:5000/active_project', data=data)
+        response = request.post('http://localhost:5000/active_project', data=data)
 
         self.assertEqual(response.status, '201 CREATED')
         self.assertEqual(response.response, [b'"Project added sucessfully!"'])
