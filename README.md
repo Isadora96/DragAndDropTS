@@ -1,133 +1,27 @@
-# CRUD API Python
+# Angular
 
-Mini server-side application with python, flask and mongoDB. 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.4.
 
-Basic operations Create, Read, Update and Delete for a person selling courses. It is possible to include the title, description, how many people joined the course and its status.
+## Development server
 
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Running locally
+## Code scaffolding
 
-- mongodb Atlas (create an account)
-- python version 3.7
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Clone the project
+## Build
 
-```bash
-  git fork  
-  git clone <your ssh clone>
-```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-Creation of the Virtual Environment (VENV)
+## Running unit tests
 
-```bash
-    python3.7 -m venv venv
-    source venv/bin/activate
-    pip install --upgrade pip
-    pip install pipenv
-    pip install -r requirements.txt 
-```
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
- ### environment variables
-- Make a copy of `.env-example` as `.env`
-- Set the variables required inside `.env`
+## Running end-to-end tests
 
-```sh
-export $(cat .env | xargs)
-``` 
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
- To start the API in the terminal run the command: 
+## Further help
 
- ```sh 
- python -m server.api 
- ```
-
- - use this URL to send the requests: http://127.0.0.1:5000/ or http://localhost:5000/ )
-
-
-## API Documentation
-
-#### Returning all active projects
-
-```http
-  GET /active_project
-```
-
-#### Returning one single active project
-
-```http
-  GET /single_active_project/${id}
-```
-
-#### Returning all finished project
-
-```http
-  GET /finished_project/
-```
-
-#### Returning one finished project
-
-```http
-  GET /single_finished_project/${id}
-```
-
-#### Creating a project
-
-```http
-  POST /active_project
-  Content-Type - JSON
-```
-
-```
-{
-	"title": "java for begginers",
-	"description": "java - from begging to advance",
-	"people": 1
-}
-```
-#### Updating an active project
-
-```http
-  PUT /active_project
-  Content-Type - application/x-www-form-urlencoded
-```
-
-```
-project_id / title / description / people / status
-```
-
-#### Updating a finished project
-
-```http
-  PUT /finished_project
-  Content-Type - application/x-www-form-urlencoded
-```
-
-```
-project_id / title / description / people / status
-```
-
-#### Deleting all active project
-
-```http
-  DELETE /active_project
-```
-
-#### Deleting all finished project
-
-```http
-  DELETE /finished_project
-```
-
-#### Deleting one finished project
-
-```http
-  DELETE /single_finished_project/${id}
-```
-## Running unittest
-
-To run all the tests, run the following command
-
-```bash
-  python -m unittest discover -v -s "tests/route/active_project" -p "*.py"
-```
-
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
