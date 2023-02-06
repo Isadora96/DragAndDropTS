@@ -1,0 +1,16 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.div-links {
+    width: 350px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
