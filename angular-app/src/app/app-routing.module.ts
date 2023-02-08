@@ -1,10 +1,22 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
-const routes: Routes = [];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot([
+    {
+      path: 'courses',
+      loadChildren: () => import('./modules/createCourse/createCourse.module').then(m => m.CreateCourseModule)
+    },
+    {
+      path: '',
+      loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
+    },
+    {
+      path: 'allcourses',
+      loadChildren: () => import('./modules/allCourses/courses.module').then(m => m.AllCoursesModule)
+    }
+  ])],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
