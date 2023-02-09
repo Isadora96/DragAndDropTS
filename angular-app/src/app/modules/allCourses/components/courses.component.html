@@ -1,1 +1,6 @@
-<h1>all courses</h1>
+<div *ngFor="let course of courses">
+    <p>{{course.title}}</p>
+    <p>{{course.description}}</p>
+    <p>{{course.people}}</p>
+    <p>{{course.status}}</p>
+</div>
