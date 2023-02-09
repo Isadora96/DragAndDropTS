@@ -1,5 +1,5 @@
 import { Component, HostBinding, HostListener } from '@angular/core';
-
+import { CoursesService } from 'src/app/courses.service';
 
 @Component({
     selector: 'app-courses',
@@ -9,8 +9,16 @@ import { Component, HostBinding, HostListener } from '@angular/core';
 
 export class AllCoursesComponent {
 
-    constructor() {
+    courses: any = [];
 
+    constructor(private coursesService: CoursesService) {
+
+    }
+
+    ngOnInit() {
+        this.coursesService.getCourses().subscribe(data => {
+            this.courses = data
+        });
     }
 
 }
