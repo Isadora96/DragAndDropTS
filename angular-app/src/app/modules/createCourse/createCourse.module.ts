@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CreateCourseComponent } from './components/createcourse.component';
-import { CreateCourseRoutingModule } from './createCourse-routing.module';
+import { FormsModule } from '@angular/forms';
 
+import { CreateCourseComponent } from './components/createCourse.component';
+import { CreateCourseRoutingModule } from './createCourse-routing.module';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
     declarations: [
@@ -9,6 +11,8 @@ import { CreateCourseRoutingModule } from './createCourse-routing.module';
     ],
     imports: [
         CreateCourseRoutingModule,
+        MatInputModule,
+        FormsModule
     ],
     exports: [
         CreateCourseComponent
