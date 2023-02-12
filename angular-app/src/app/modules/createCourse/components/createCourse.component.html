@@ -2,7 +2,7 @@
     <form class="example-form" (ngSubmit)="onSubmit()" >
         <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field class="example-full-width">
-            <mat-label for="title">Couse Title</mat-label>
+            <mat-label for="title">Course Title</mat-label>
             <input type="text" class="form-control" id="title" required name="title" [(ngModel)]="title" matInput placeholder="Ex. Typescript - zero to hero">
           </mat-form-field></td>
         </tr>
@@ -21,7 +21,7 @@
               <input type="number" min="1" id="people" name="people" [(ngModel)]="people" matInput placeholder="Ex. 50" required>
             </mat-form-field>
         </p>
-        <button type="submit" (click)="newCourse()">Criar</button>
+        <button type="submit" (click)="newCourse()">Create</button>
     </form>
 </div>
   
