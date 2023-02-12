@@ -6,7 +6,7 @@
       <a (click)="doRedirect($event, '/')" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         home
       </a>
-      <a (click)="doRedirect($event, '/courses')" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <a (click)="doRedirect($event, '/createcourse')" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         Criar curso
       </a>
       <a (click)="doRedirect($event, '/allcourses')"  mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
@@ -14,23 +14,6 @@
       </a>
     </div>
     <div>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon>favorite</mat-icon>
-      </button>
+      <app-tooltip (click)="doRedirect($event, '/favorites')"></app-tooltip>
     </div>
 </mat-toolbar>
-<!-- <nav>
-    <a 
-        href="#courses"
-       routerLink="courses"
-       routerLinkActive="activebutton"
-       ariaCurrentWhenActive="page">
-      Crisis Center
-    </a> |
-    <a 
-       routerLink="/home"
-       routerLinkActive="activebutton"
-       ariaCurrentWhenActive="page">
-      Heroes
-    </a>
-  </nav> -->

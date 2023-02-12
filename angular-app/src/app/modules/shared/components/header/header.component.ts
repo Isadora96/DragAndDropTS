@@ -20,8 +20,4 @@ export class HeaderComponent {
         this.router.navigate([path]);
     }
 
-    doRedirectHome($event: Event, path: string) {
-        $event.stopPropagation();
-        this.router.navigate([path]);
-    }
 }
