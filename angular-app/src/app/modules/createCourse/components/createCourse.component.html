@@ -1,1 +1,27 @@
-<h1>create course</h1>
+<div class="display-flex form-group">
+    <form class="example-form" (ngSubmit)="onSubmit()" >
+        <table class="example-full-width" cellspacing="0"><tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label for="title">Couse Title</mat-label>
+            <input type="text" class="form-control" id="title" required name="title" [(ngModel)]="title" matInput placeholder="Ex. Typescript - zero to hero">
+          </mat-form-field></td>
+        </tr>
+        </table>
+      
+        <p>
+          <mat-form-field class="example-full-width">
+            <mat-label for="description">Description</mat-label>
+            <textarea type="text" id="description" name="description" [(ngModel)]="description" matInput placeholder="Ex. learning typescript" required></textarea>
+          </mat-form-field>
+        </p>
+    
+        <p>
+            <mat-form-field class="example-half-width">
+              <mat-label for="people">People</mat-label>
+              <input type="number" min="1" id="people" name="people" [(ngModel)]="people" matInput placeholder="Ex. 50" required>
+            </mat-form-field>
+        </p>
+        <button type="submit" (click)="newCourse()">Criar</button>
+    </form>
+</div>
+  
