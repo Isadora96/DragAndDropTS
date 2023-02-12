@@ -10,6 +10,7 @@ import { CoursesService } from 'src/app/courses.service';
 export class AllCoursesComponent {
 
     courses: any = [];
+    fav: boolean = false;
 
     constructor(private coursesService: CoursesService) {
 
@@ -20,5 +21,16 @@ export class AllCoursesComponent {
             this.courses = data
         });
     }
+
+    favorite($event: Event) {
+        //$event.preventDefault();
+        const favoriteIcons = document.querySelectorAll(".favorite-icon-course");
+        favoriteIcons.forEach(favoriteIcon => {
+            favoriteIcon.addEventListener('click', () => {
+                favoriteIcon.classList.toggle('mat-icon-red')
+            })
+        })
+    }
+
 
 }

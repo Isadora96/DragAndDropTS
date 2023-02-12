@@ -1,6 +1,26 @@
-<div *ngFor="let course of courses">
-    <p>{{course.title}}</p>
-    <p>{{course.description}}</p>
-    <p>{{course.people}}</p>
-    <p>{{course.status}}</p>
+<div class="display-flex">
+    <div *ngFor="let course of courses">
+        <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <mat-card-subtitle>{{course.title}}</mat-card-subtitle>
+              <div class="position-absolute">
+                <span mat-span class="mat-icon-grey" aria-label="Example icon-button with heart icon">
+                  <mat-icon (click)="favorite($event)" [class.mat-icon-red]="fav == true" class="favorite-icon-course">favorite</mat-icon>
+                </span>  
+              </div>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <mat-card-content>
+              <p>
+                {{course.description}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <span mat-span>People who joined: {{course.people}}</span>
+              <span mat-span>Status: {{course.status}}</span>
+            </mat-card-actions>
+        </mat-card>
+    </div>
 </div>

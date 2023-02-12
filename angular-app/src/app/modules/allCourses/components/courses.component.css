@@ -1,0 +1,43 @@
+.mat-mdc-card-avatar{
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.example-card {
+    max-width: 400px;
+}
+
+.mdc-card__actions {
+    justify-content: space-between;
+}
+
+.display-flex {
+    max-width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 1rem 1rem;
+}
+
+.display-flex > div {
+    padding: 0 0 1rem 1rem;
+}
+
+.position-absolute {
+    position: absolute;
+    right: 1%;
+    top: 1%;
+}
+
+.mat-icon {
+    cursor: pointer;
+}
+
+.mat-icon-grey, .favorite-icon-grey {
+    color: #a89f9f;
+}
+
+.mat-icon-red {
+    color: red;
+}
