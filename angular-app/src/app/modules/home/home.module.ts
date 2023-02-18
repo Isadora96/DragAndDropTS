@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './components/home.component';
+import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
-        HomeComponent,
+        HomeComponent
     ],
     imports: [
         HomeRoutingModule,
         MatTableModule,
-        MatPaginatorModule
+        MatCheckboxModule,
+        CommonModule
     ],
     exports: [
-        HomeComponent,
-    ]
+        HomeComponent
+    ],
 })
 
 export class HomeModule {}
