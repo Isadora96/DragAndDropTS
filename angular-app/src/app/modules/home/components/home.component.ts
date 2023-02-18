@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-
-
+import { CoursesService } from 'src/app/courses.service';
 
 @Component({
     selector: 'app-home',
@@ -9,14 +7,20 @@ import { Router } from '@angular/router';
     styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent {
+export class HomeComponent  {
+    displayedColumns: string[] = ['title', 'description', 'people', 'status', 'created_at']; 
+    courses: any = [];
+  
+    resultsLength = 0;
+    isLoadingResults = true;
+    isRateLimitReached = false;
+    
+    constructor(private coursesService: CoursesService) { }
 
-    constructor(private router: Router) {
-        console.log(router)
+    ngOnInit() {
+        this.coursesService.getCourses().subscribe(data => {
+            this.courses = data
+        });
     }
-
-    // doRedirect($event: Event, path: string) {
-    //     $event.stopPropagation();
-    //     this.router.navigate([path]);
-    // }
 }
+  
