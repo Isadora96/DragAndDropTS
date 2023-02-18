@@ -8,8 +8,6 @@
   
 .example-table-container {
     position: relative;
-    min-height: 200px;
-    max-height: 400px;
     overflow: auto;
 }
   
@@ -21,7 +19,7 @@ table {
   position: absolute;
     top: 0;
     left: 0;
-    bottom: 56px;
+    bottom: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.15);
     z-index: 1;
@@ -43,4 +41,12 @@ table {
   
 .mat-column-created {
     max-width: 124px;
+}
+
+.display-none {
+    display: none;
+}
+
+.display-block {
+    display: block;
 }
