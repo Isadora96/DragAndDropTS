@@ -50,3 +50,84 @@ table {
 .display-block {
     display: block;
 }
+
+#modal {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.delete-btn, 
+.update-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    color: #e8dedf;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.update-btn {
+    background-color: #40dd2e;
+    color: #d2e0d7;
+    border: none;
+    margin-right: 10px;
+  }
+  
+.delete-btn {
+    background-color: #e71313;
+    border: 2px solid #dc0d0d;
+}
+  
+.modal {
+    display: none; /* Hide the modal by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+}  
+  
+.modal-content {
+    background-color: #fefefe;
+    margin: 0 auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 600px;
+    height: 300px;
+    position: relative; /* Relative positioning for the close button */
+    display: flex;
+}
+  
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.buttons {
+    position: relative;
+    top: 0;
+    display: flex;
+    justify-content: end;
+    margin-right: 10px;
+    margin-top: -40px;
+}
+
+.content-text {
+    padding-left: 20px;
+}
