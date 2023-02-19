@@ -10,15 +10,19 @@ import { map } from 'rxjs/operators';
 
 export class CoursesService {
 
-    coursesUrl: string = 'http://localhost:5000/active_project';
+    coursesUrl: string = 'http://localhost:5000';
 
     constructor(private http: HttpClient) {}
 
     getCourses() {
-        return this.http.get(this.coursesUrl);
+        return this.http.get(`${this.coursesUrl}/active_project`);
     }
 
     postCourse(course: Course) {
-        return this.http.post(this.coursesUrl, course , {	observe: 'body' }).pipe(map((result: any) => result));
+        return this.http.post(`${this.coursesUrl}/active_project`, course , {	observe: 'body' }).pipe(map((result: any) => result));
+    }
+
+    deleteCourse(courseId: string) {
+        return this.http.delete(`${this.coursesUrl}/single_active_project/${courseId}`).pipe(map((result: any) => result));
     }
 }
