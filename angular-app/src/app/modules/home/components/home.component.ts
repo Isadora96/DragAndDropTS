@@ -48,24 +48,58 @@ export class HomeComponent  {
     loadResults() {
         this.coursesService.getCourses().subscribe(data => {
             this.courses = data
+            if(this.courses.length < 1) this.setDisabled = true
         })
     }
 
-    onClick(event: Event, rowId: any) {
+    onClickOpenModal(event: Event, rowId: any) {
         event.stopPropagation();
-        this.toggled = true;
-        this.setDisabled = true;
-        const modal = document.querySelector('#modal');
-        modal?.setAttribute('class', 'display-block')
-        this.setContent(rowId)
+        this.openModal('#modal');
+        this.setContent(rowId);
     }
 
-    onClose(event: Event) {
+    onClickOpenModalAll(event: Event) {
         event.stopPropagation();
-        //this.currentCourse.splice(0);
+        this.openModal('#modalAll')
+    }
+
+    onCloseModal(event: Event) {
+        event.stopPropagation();
+        this.setCloseModalId('#modal');
+    }
+
+    onCloseModalAll(event: Event) {
+        event.stopPropagation();
+        this.setCloseModalId('#modalAll');
+    }
+
+    deleteAll() {
+        const deleteBtn = document.querySelector('#delete-btn-all')! as HTMLButtonElement;
+        this.coursesService.deleteAllCourses().
+            subscribe(response => {
+                window.alert(response)
+                location.reload();
+                console.log(response);
+            },
+            error => {
+                window.alert('Something went wrong!')
+                location.reload();
+                console.log(error);
+        })
+
+    }
+
+    private openModal(id: string) {
+        this.toggled = true;
+        this.setDisabled = true;
+        const modal = document.querySelector(id);
+        modal?.setAttribute('class', 'display-block')
+    }
+
+    private setCloseModalId(id: string) {
         this.toggled = false;
         this.setDisabled = false;
-        const modal = document.querySelector('#modal');
+        const modal = document.querySelector(id);
         modal?.setAttribute('class', 'display-none');
         this.selection.clear();
     }
@@ -85,7 +119,7 @@ export class HomeComponent  {
 
     }
 
-    onDelete(rowId: any) {
+    private onDelete(rowId: any) {
         const deleteBtn = document.querySelector('#delete-btn')! as HTMLButtonElement;
         deleteBtn.addEventListener('click', (event: Event) => {
             event.stopPropagation();
@@ -102,5 +136,6 @@ export class HomeComponent  {
             })
         });
     }
+
 }
   

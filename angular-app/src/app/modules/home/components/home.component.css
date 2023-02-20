@@ -51,7 +51,7 @@ table {
     display: block;
 }
 
-#modal {
+#modal, #modalAll {
     position: fixed;
     top: 30%;
     left: 50%;
@@ -101,6 +101,24 @@ table {
     height: 300px;
     position: relative; /* Relative positioning for the close button */
     display: flex;
+}
+
+.modal-content-all {
+    background-color: #fefefe;
+    margin: 0 auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 250px;
+    height: 80px;
+    position: relative; /* Relative positioning for the close button */
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#all-selected {
+    position: relative;
+    top: -35%;
 }
   
 .close-button {
