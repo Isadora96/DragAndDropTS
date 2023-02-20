@@ -25,4 +25,8 @@ export class CoursesService {
     deleteCourse(courseId: string) {
         return this.http.delete(`${this.coursesUrl}/single_active_project/${courseId}`).pipe(map((result: any) => result));
     }
+
+    deleteAllCourses() {
+        return this.http.delete(`${this.coursesUrl}/active_project`).pipe(map((result: any) => result));
+    }
 }
