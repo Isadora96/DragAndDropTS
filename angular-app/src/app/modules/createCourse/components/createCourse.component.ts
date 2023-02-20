@@ -17,17 +17,13 @@ export class CreateCourseComponent {
 
     constructor(private coursesService: CoursesService) { }
 
-    submitted = false;
-
-    onSubmit() {
-        this.submitted = true;
-    }
-
 
   newCourse() {
     const course = new Course(this.title, this.description, this.people);
-    this.coursesService.postCourse(course).subscribe(res => {
-      console.log(res);
+    this.coursesService.postCourse(course).subscribe(response => {
+      window.alert(response)
+      location.reload();
+      console.log(response);
     })
   }
 }
