@@ -24,6 +24,24 @@
                         [disabled]="setDisabled"
                         >
           </mat-checkbox>
+          <div class="modal" id="modal">
+            <div class="modal-content">
+              <span class="close-button" (click)="onCloseModal($event)">&times;</span>
+              <div id="imagem">
+                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="" style="width: 350px;">
+              </div>
+              <div class="content-text">
+                <h2 id="title"></h2>
+                <p id="description"></p>
+                <p id="people"></p>
+                <p id="status"></p>
+              </div>
+            </div>
+            <div class="buttons">
+              <button class="update-btn" id="update-btn">Update</button>
+              <button class="delete-btn" id="delete-btn">Delete</button>
+            </div>
+          </div>
         </td>
       </ng-container>
   
@@ -59,24 +77,7 @@
       </table>
     </div>
 </div>
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close-button" (click)="onCloseModal($event)">&times;</span>
-    <div id="imagem">
-      <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="" style="width: 350px;">
-    </div>
-    <div class="content-text">
-      <h2 id="title"></h2>
-      <p id="description"></p>
-      <p id="people"></p>
-      <p id="status"></p>
-    </div>
-  </div>
-  <div class="buttons">
-    <button class="update-btn">Update</button>
-    <button class="delete-btn" id="delete-btn">Delete</button>
-  </div>
-</div>
+
 <div class="modal" id="modalAll">
   <div class="modal-content-all">
     <span class="close-button" (click)="onCloseModalAll($event)">&times;</span>

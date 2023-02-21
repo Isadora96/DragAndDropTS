@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CoursesService } from 'src/app/courses.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import { Course } from '../../shared/models/course.model';
-import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -17,7 +17,7 @@ export class HomeComponent  {
     toggled: Boolean = false;
     setDisabled = false;
     
-    constructor(private coursesService: CoursesService) { }
+    constructor(private coursesService: CoursesService, private router: Router) { }
 
 
     ngOnInit() {
@@ -74,7 +74,6 @@ export class HomeComponent  {
     }
 
     deleteAll() {
-        const deleteBtn = document.querySelector('#delete-btn-all')! as HTMLButtonElement;
         this.coursesService.deleteAllCourses().
             subscribe(response => {
                 window.alert(response)
@@ -87,6 +86,14 @@ export class HomeComponent  {
                 console.log(error);
         })
 
+    }
+
+    private onUpdate(rowId: any) {
+        const updateBtn = document.querySelector('#update-btn')! as HTMLButtonElement;
+        updateBtn.addEventListener('click', (event: Event) => {
+            event.stopPropagation();
+            this.router.navigate([`/createcourse/${rowId._id.$oid}`]);
+        })
     }
 
     private openModal(id: string) {
@@ -116,6 +123,7 @@ export class HomeComponent  {
         status.textContent = 'Status: ' + rowId.status
 
         this.onDelete(rowId);
+        this.onUpdate(rowId);
 
     }
 
