@@ -3,7 +3,23 @@
         <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field class="example-full-width">
             <mat-label for="title">Course Title</mat-label>
-            <input type="text" class="form-control" id="title" required name="title" [(ngModel)]="title" matInput placeholder="Ex. Typescript - zero to hero">
+            <input type="text" class="form-control" 
+                   id="title" 
+                   required 
+                   name="title" 
+                   [(ngModel)]="title" 
+                   matInput 
+                   *ngIf="!isUpdate"
+                   placeholder="Ex. Typescript - zero to hero"
+            >
+            <input type="text" class="form-control" 
+                    id="title" 
+                    name="title" 
+                    [(ngModel)]="title" 
+                    matInput 
+                    *ngIf="isUpdate"
+                    value="{{course.title}}"
+            >
           </mat-form-field></td>
         </tr>
         </table>
@@ -11,17 +27,65 @@
         <p>
           <mat-form-field class="example-full-width">
             <mat-label for="description">Description</mat-label>
-            <textarea type="text" id="description" name="description" [(ngModel)]="description" matInput placeholder="Ex. learning typescript" required></textarea>
+            <textarea type="text" 
+                      id="description" 
+                      name="description" 
+                      [(ngModel)]="description" 
+                      matInput 
+                      placeholder="Ex. learning typescript" 
+                      *ngIf="!isUpdate"
+                      required
+                      >
+              </textarea>
+              <textarea type="text" 
+                        id="description-update" 
+                        name="description" 
+                        [(ngModel)]="description" 
+                        matInput 
+                        placeholder="Ex. learning typescript" 
+                        *ngIf="isUpdate"
+                        value="{{course.description}}"
+              >
+              </textarea>
           </mat-form-field>
         </p>
     
         <p>
             <mat-form-field class="example-half-width">
               <mat-label for="people">People</mat-label>
-              <input type="number" min="1" id="people" name="people" [(ngModel)]="people" matInput placeholder="Ex. 50" required>
+              <input type="number" 
+                      min="1" 
+                      id="people" 
+                      name="people" 
+                      [(ngModel)]="people" 
+                      matInput 
+                      placeholder="Ex. 50" 
+                      required
+                      *ngIf="!isUpdate"
+              >
+              <input type="number" 
+                      min="1" 
+                      id="people-update" 
+                      name="people" 
+                      [(ngModel)]="people" 
+                      matInput 
+                      placeholder="Ex. 50" 
+                      *ngIf="isUpdate"
+                      value="{{course.people}}"
+              >
             </mat-form-field>
         </p>
-        <button type="submit" (click)="newCourse()">Create</button>
+        <p *ngIf="isUpdate">
+          <mat-form-field appearance="fill">
+            <mat-label>Status</mat-label>
+            <mat-select>
+              <mat-option value="active">Active</mat-option>
+              <mat-option value="finished">Finished</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </p>
+        <button type="submit" (click)="newCourse()" *ngIf="!isUpdate">Create</button>
+        <button type="submit" *ngIf="isUpdate" (click)="doUpdate($event)">Update</button>
     </form>
 </div>
   
