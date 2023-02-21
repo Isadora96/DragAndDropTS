@@ -5,7 +5,11 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   imports: [RouterModule.forRoot([
     {
-      path: 'courses',
+      path: 'createcourse',
+      loadChildren: () => import('./modules/createCourse/createCourse.module').then(m => m.CreateCourseModule)
+    },
+    {
+      path: 'createcourse/:course_id',
       loadChildren: () => import('./modules/createCourse/createCourse.module').then(m => m.CreateCourseModule)
     },
     {
@@ -15,6 +19,10 @@ import { RouterModule } from '@angular/router';
     {
       path: 'allcourses',
       loadChildren: () => import('./modules/allCourses/courses.module').then(m => m.AllCoursesModule)
+    },
+    {
+      path: 'favorites',
+      loadChildren: () => import('./modules/favorites/favorites.module').then(m => m.FavoritesModule)
     }
   ])],
   exports: [RouterModule]
