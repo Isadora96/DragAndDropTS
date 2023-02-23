@@ -16,6 +16,7 @@ export class CreateCourseComponent {
     people!: number;
     course: any = [];
     isUpdate: Boolean = false;
+    selectValue: any;
 
     constructor(private coursesService: CoursesService, private router: Router) { }
 
@@ -51,7 +52,26 @@ export class CreateCourseComponent {
     const title = document.querySelector('#title-update') as HTMLInputElement;
     const description = document.querySelector('#description-update') as HTMLInputElement;
     const people = document.querySelector('#people-update') as HTMLInputElement;
-    //const course = new CourseUpdate(_id, title, description, people)
-    //this.coursesService.updateCourse()
+    const select = document.querySelector('#select') as HTMLSelectElement;
+    const span = document.querySelector('#select-required') as HTMLSpanElement;
+
+    this.selectValue = select.textContent?.toLowerCase();
+
+    if(!this.selectValue) {
+      span.textContent = 'Make a selection';
+      span.setAttribute('class', 'select-required');
+      return
+    }
+
+    const course = new CourseUpdate(_id, title.value, description.value, Number(people.value), this.selectValue)
+    this.coursesService.updateCourse(course).subscribe(response => {
+      window.alert(response)
+      this.router.navigate(['/createcourse'])
+      console.log(response);
+    },
+    (error) => {
+      window.alert(error.error.message);
+    })
+
   }
 }

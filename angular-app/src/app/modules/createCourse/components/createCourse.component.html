@@ -13,7 +13,7 @@
                    placeholder="Ex. Typescript - zero to hero"
             >
             <input type="text" class="form-control" 
-                    id="title" 
+                    id="title-update" 
                     name="title" 
                     [(ngModel)]="title" 
                     matInput 
@@ -49,41 +49,44 @@
               </textarea>
           </mat-form-field>
         </p>
-    
-        <p>
-            <mat-form-field class="example-half-width">
-              <mat-label for="people">People</mat-label>
-              <input type="number" 
-                      min="1" 
-                      id="people" 
-                      name="people" 
-                      [(ngModel)]="people" 
-                      matInput 
-                      placeholder="Ex. 50" 
-                      required
-                      *ngIf="!isUpdate"
-              >
-              <input type="number" 
-                      min="1" 
-                      id="people-update" 
-                      name="people" 
-                      [(ngModel)]="people" 
-                      matInput 
-                      placeholder="Ex. 50" 
-                      *ngIf="isUpdate"
-                      value="{{course.people}}"
-              >
-            </mat-form-field>
-        </p>
-        <p *ngIf="isUpdate">
-          <mat-form-field appearance="fill">
-            <mat-label>Status</mat-label>
-            <mat-select>
-              <mat-option value="active">Active</mat-option>
-              <mat-option value="finished">Finished</mat-option>
-            </mat-select>
+    <div class="display-flex-up">
+      <p>
+          <mat-form-field class="example-half-width">
+            <mat-label for="people">People</mat-label>
+            <input type="number" 
+                    min="1" 
+                    id="people" 
+                    name="people" 
+                    [(ngModel)]="people" 
+                    matInput 
+                    placeholder="Ex. 50" 
+                    required
+                    *ngIf="!isUpdate"
+            >
+            <input type="number" 
+                    min="1" 
+                    id="people-update" 
+                    name="people" 
+                    [(ngModel)]="people" 
+                    matInput 
+                    placeholder="Ex. 50" 
+                    *ngIf="isUpdate"
+                    value="{{course.people}}"
+            >
           </mat-form-field>
       </p>
+      
+      <p *ngIf="isUpdate">
+        <mat-form-field appearance="fill" aria-required="true">
+          <mat-label>Status</mat-label>
+          <mat-select id="select">
+            <mat-option value="active">Active</mat-option>
+            <mat-option value="finished">Finished</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span *ngIf="!selectValue" id="select-required"></span>
+    </p>
+    </div>
         <button type="submit" (click)="newCourse()" *ngIf="!isUpdate">Create</button>
         <button type="submit" *ngIf="isUpdate" (click)="doUpdate($event)">Update</button>
     </form>

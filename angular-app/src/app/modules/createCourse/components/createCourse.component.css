@@ -2,6 +2,8 @@
     min-width: 150px;
     max-width: 500px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
   
 .example-full-width {
@@ -22,11 +24,42 @@ td {
     padding-top: 1rem;
 }
 
-/* .ng-valid[required], .ng-valid.required  {
-    border-left: 5px solid #42A948; 
+.select-required {
+    display: block;
+    margin-top: -20px;
+    font-size: 12px;
+    color: rgb(213, 36, 36);
+}
+
+.display-flex-up {
+    display: flex;
+    justify-content: space-between;
 }
   
-.ng-invalid:not(form)  {
-    border-left: 5px solid #e92f2c; 
-} */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+input[type="text"],
+textarea {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+button[type="submit"]:hover {
+    background-color: #0069d9;
+  }
   
