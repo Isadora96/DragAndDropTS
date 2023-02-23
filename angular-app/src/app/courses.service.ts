@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Course, CourseUpdate } from "./modules/shared/models/course.model";
 // import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -35,6 +35,9 @@ export class CoursesService {
     }
 
     updateCourse(course: CourseUpdate) {
-        return this.http.put(`${this.coursesUrl}/active_project`, course).pipe(map((result: any) => result));
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+          });
+        return this.http.put(`${this.coursesUrl}/active_project`, course, { headers }).pipe(map((result: any) => result));
     }
 }
