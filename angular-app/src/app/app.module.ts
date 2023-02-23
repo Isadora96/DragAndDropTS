@@ -9,11 +9,14 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CreateCourseModule } from './modules/createCourse/createCourse.module';
 import { HomeModule } from './modules/home/home.module';
 import { AllCoursesModule } from './modules/allCourses/courses.module';
+import { FavoritesModule } from './modules/favorites/favorites.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule ({
     declarations: [
     AppComponent,
-    //HomeComponent
+    
   ],
   imports: [
     AppRoutingModule,
@@ -22,7 +25,9 @@ import { AllCoursesModule } from './modules/allCourses/courses.module';
     CreateCourseModule,
     HomeModule,
     AllCoursesModule,
-    HttpClientModule
+    FavoritesModule,
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   bootstrap: [AppComponent]
 })
