@@ -41,35 +41,41 @@ class ActiveProject(Resource):
 
     @staticmethod
     def put():
-        project_id = request.form.get('project_id')
-        project_status = request.form['status']
-        people = request.form['people']
-        project = db.project_active.find_one({"_id": ObjectId(project_id)})
-        if project and project_status == 'active' and int(people) >= 1:
-            db.project_active.update_one({"_id": ObjectId(project_id)}, {
+        if not request.content_type == 'application/json':
+            return Response(response=json.dumps('Content-Type header is not "application/json"!'), status=415)
+        course_info = request.json
+        course_id = course_info.get('id')
+        title = course_info.get('title')
+        status = course_info.get('status')
+        people = course_info.get('people')
+        description = course_info.get('description')
+        project = db.project_active.find_one({"_id": ObjectId(course_id)})
+
+        if project and status == 'active' and int(people) >= 1:
+            db.project_active.update_one({"_id": ObjectId(course_id)}, {
                 '$set': {
-                    'title': request.form['title'],
-                    'description': request.form['description'],
+                    'title': title,
+                    'description': description,
                     'people': int(people),
-                    'status': request.form['status'],
+                    'status': status,
                     'updated_at': GetDate().date()
                 }
             })
             return Response(response=json.dumps('Project updated sucessfully!'), status=202)
-        elif project and project_status == 'finished':
+        elif project and status == 'finished':
             if not 'project_finished' in db.list_collection_names():
                 db.create_collection('project_finished')
             db.project_finished.insert_one({
-                'title': request.form['title'],
-                'description': request.form['description'],
-                'people': int(request.form['people']),
-                'status': request.form['status'],
+                'title': title,
+                'description': description,
+                'people': int(people),
+                'status': status,
                 'created_at': project.get('created_at'),
                 'updated_at': GetDate().date()
             })
-            db.project_active.delete_one({"_id": ObjectId(project_id)})
+            db.project_active.delete_one({"_id": ObjectId(course_id)})
             return Response(response=json.dumps('Project updated sucessfully!'), status=202)
-        else:
+        elif not project:
             return Response(response=json.dumps('That project does not exist'), status=404)
 
     @staticmethod
