@@ -58,7 +58,8 @@ class ActiveProject(Resource):
                     'description': description,
                     'people': int(people),
                     'status': status,
-                    'updated_at': GetDate().date()
+                    'updated_at': GetDate().date(),
+                    'created_at': project.get('created_at')
                 }
             })
             return Response(response=json.dumps('Project updated sucessfully!'), status=202)
