@@ -28,6 +28,9 @@ export class CreateCourseComponent {
     }
 
   newCourse() {
+    if(!this.title || !this.description || !this.people) {
+      return
+    }
     const course = new Course(this.title, this.description, this.people);
     this.coursesService.postCourse(course).subscribe(response => {
       window.alert(response)
