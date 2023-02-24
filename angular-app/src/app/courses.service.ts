@@ -19,7 +19,7 @@ export class CoursesService {
     }
 
     getSingleCourse(courseId: string) {
-        return this.http.get(`${this.coursesUrl}/single_active_project/${courseId}`);
+        return this.http.get(`${this.coursesUrl}/active_project/${courseId}`);
     }
 
     postCourse(course: Course) {
@@ -27,7 +27,7 @@ export class CoursesService {
     }
 
     deleteCourse(courseId: string) {
-        return this.http.delete(`${this.coursesUrl}/single_active_project/${courseId}`).pipe(map((result: any) => result));
+        return this.http.delete(`${this.coursesUrl}/active_project/${courseId}`).pipe(map((result: any) => result));
     }
 
     deleteAllCourses() {
