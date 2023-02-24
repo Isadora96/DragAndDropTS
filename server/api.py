@@ -13,9 +13,9 @@ CORS(APP)
 API = Api(APP)
 
 API.add_resource(ActiveProject, '/active_project')
-API.add_resource(SingleActiveProject, '/single_active_project/<string:project_id>')
+API.add_resource(SingleActiveProject, '/active_project/<string:project_id>')
 API.add_resource(FinishedProject, '/finished_project')
-API.add_resource(SingleFinishedProject, '/single_finished_project/<string:project_id>')
+API.add_resource(SingleFinishedProject, '/finished_project/<string:project_id>')
 
 
 if __name__ == '__main__':
