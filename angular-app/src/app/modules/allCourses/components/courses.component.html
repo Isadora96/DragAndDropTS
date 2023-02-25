@@ -6,9 +6,10 @@
               <mat-card-title>Shiba Inu</mat-card-title>
               <mat-card-subtitle>{{course.title}}</mat-card-subtitle>
               <div class="position-absolute">
-                <span mat-span class="mat-icon-grey" aria-label="Example icon-button with heart icon">
-                  <mat-icon (click)="favorite($event)" [class.mat-icon-red]="fav == true" class="favorite-icon-course">favorite</mat-icon>
-                </span>  
+                <label class="heart-checkbox">
+                <input type="checkbox" data-id="{{course._id.$oid}}" [checked]="isFavorite(course)" (change)="favorite($event)" aria-label="Example icon-button with heart icon">
+                <span class="heart favorite-icon-course"></span>  
+                </label>  
               </div>
             </mat-card-header>
             <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
