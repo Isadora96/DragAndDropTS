@@ -1,5 +1,5 @@
 import { Component, HostBinding, HostListener } from '@angular/core';
-import { CoursesService } from 'src/app/courses.service';
+import { CoursesService } from 'src/app/modules/shared/services/courses.service';
 import { Course, CourseUpdate } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
 
