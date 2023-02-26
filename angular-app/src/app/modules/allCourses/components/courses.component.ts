@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostBinding, HostListener, OnInit } from '@angular/core';
-import { CoursesService } from 'src/app/courses.service';
-import { FavoritesComponent } from '../../favorites/components/favorites.component';
+import { CoursesService } from 'src/app/modules/shared/services/courses.service';
+import { FavoritesService } from '../../shared/services/favorites.service';
 
 @Component({
     selector: 'app-courses',
@@ -13,9 +13,10 @@ export class AllCoursesComponent implements OnInit {
     courses: any = [];
     favorites: any = [];
 
-    constructor(private coursesService: CoursesService) {}
+    constructor(private coursesService: CoursesService, private favoritesService: FavoritesService) {}
 
     ngOnInit() {
+        this.favorites = localStorage.getItem('favorites.courses') ? localStorage.getItem('favorites.courses')?.split(',') : []
         this.coursesService.getCourses().subscribe(data => {
             this.courses = data
         });
@@ -26,9 +27,11 @@ export class AllCoursesComponent implements OnInit {
         if(event.target.checked){
             this.favorites.push(course_id);
             this.saveFavoritesToStorage('favorites.courses');
+            this.favoritesService.setData(this.favorites.length);
         } else {
             this.unsaveFavorites(course_id);
             this.saveFavoritesToStorage('favorites.courses');
+            this.favoritesService.setData(this.favorites.length);
         }
     }
 
@@ -50,4 +53,5 @@ export class AllCoursesComponent implements OnInit {
         }
         return false
     }
+
 }
