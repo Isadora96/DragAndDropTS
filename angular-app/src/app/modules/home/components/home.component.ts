@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CoursesService } from 'src/app/courses.service';
+import { CoursesService } from 'src/app/modules/shared/services/courses.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import { Course } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
