@@ -1,6 +1,6 @@
-import { Component, HostBinding, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Component, OnDestroy } from '@angular/core';
+import { Router, Event as NavigationEvent, NavigationEnd, NavigationStart  } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -9,10 +9,27 @@ import { Router } from '@angular/router';
     styleUrls: ['./header.component.css']
 })
 
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
+
+    event$: { unsubscribe: () => void; } | undefined
+
+    currentRoute: string | undefined;
 
     constructor(private router: Router) {
-        //console.log(router)
+        this.event$ = this.router.events.subscribe(event => {
+            if(event instanceof NavigationStart) {
+                this.currentRoute = event.url
+            }
+        })
+    }
+
+    ngOnDestroy() {
+        this.event$!.unsubscribe();
+    }
+
+
+    ngAfterView() {
+
     }
 
     doRedirect($event: Event, path: string) {
