@@ -9,7 +9,6 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CreateCourseModule } from './modules/createCourse/createCourse.module';
 import { HomeModule } from './modules/home/home.module';
 import { AllCoursesModule } from './modules/allCourses/courses.module';
-import { FavoritesModule } from './modules/favorites/favorites.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -25,7 +24,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CreateCourseModule,
     HomeModule,
     AllCoursesModule,
-    FavoritesModule,
     HttpClientModule,
     BrowserAnimationsModule
   ],
