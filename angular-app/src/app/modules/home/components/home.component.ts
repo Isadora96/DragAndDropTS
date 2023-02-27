@@ -24,6 +24,16 @@ export class HomeComponent  {
         this.loadResults();
     };
 
+    checkStorage(id: string) {
+        const favorites_id = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : []
+        for(let fav_id of favorites_id!) {
+            if(fav_id.id == id) {
+                favorites_id!.splice(favorites_id!.indexOf(id), 1);
+                localStorage.setItem('favorites.courses', JSON.stringify(favorites_id));
+            }
+        }
+    }
+
     isAllSelected() {
         const numSelected = this.selection.selected.length;
         const numRows = this.courses.length;
@@ -133,7 +143,8 @@ export class HomeComponent  {
             event.stopPropagation();
             this.coursesService.deleteCourse(rowId._id.$oid).
             subscribe(response => {
-                window.alert(response)
+                this.checkStorage(rowId._id.$oid);
+                window.alert(response);
                 location.reload();
                 console.log(response);
             },
