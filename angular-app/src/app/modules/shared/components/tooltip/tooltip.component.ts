@@ -19,7 +19,7 @@ export class TooltipComponent {
   constructor(private favoritesService: FavoritesService) {}
 
   ngOnInit(): void {
-    this.favoritesService.getData().subscribe((data) => (this.favNumber = data));
+    this.favoritesService.getData().subscribe((data) => (this.favNumber = data.length));
   }
 
 }
