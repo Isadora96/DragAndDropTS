@@ -16,7 +16,7 @@ export class AllCoursesComponent implements OnInit {
     constructor(private coursesService: CoursesService, private favoritesService: FavoritesService) {}
 
     ngOnInit() {
-        this.favorites = localStorage.getItem('favorites.courses') ? localStorage.getItem('favorites.courses')?.split(',') : []
+        this.favorites = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : []
         this.coursesService.getCourses().subscribe(data => {
             this.courses = data
         });
@@ -25,7 +25,7 @@ export class AllCoursesComponent implements OnInit {
     favorite(event: any) {
         const course_id = event.target.id
         if(event.target.checked){
-            this.favorites.push(course_id);
+            this.favorites.push({id: course_id});
             this.saveFavoritesToStorage('favorites.courses');
             this.favoritesService.setData(this.favorites.length);
         } else {
@@ -36,18 +36,18 @@ export class AllCoursesComponent implements OnInit {
     }
 
     saveFavoritesToStorage(key: string) {
-        localStorage.setItem(key, this.favorites)
+        localStorage.setItem(key, JSON.stringify(this.favorites))
     }
 
     unsaveFavorites(_id: string){
-        const favorite_id = localStorage.getItem('favorites.courses')?.split(',');
+        const favorite_id = JSON.parse(localStorage.getItem('favorites.courses')!);
         this.favorites.splice(favorite_id?.indexOf(_id), 1);
     }
 
     isFavorite(course: any) {
-        const favorites_id = localStorage.getItem('favorites.courses') ? localStorage.getItem('favorites.courses')?.split(',') : [];
+        const favorites_id = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : [];
         for (let i = 0; i < favorites_id!.length; i++) {
-            if (favorites_id![i] === course._id.$oid) {
+            if (favorites_id![i].id === course._id.$oid) {
                 return true;
             }
         }
