@@ -5,13 +5,14 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class FavoritesService {
-  private data = new BehaviorSubject<number | undefined>(0);
+  private storaged = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : []
+  private data = new BehaviorSubject<Array<string>>(this.storaged);
 
   getData() {
     return this.data.asObservable();
   }
 
-  setData(number: number | undefined) {
-    this.data.next(number);
+  setData(arr: Array<string>) {
+    this.data.next(arr);
   }
 }

@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 
 export class CoursesService {
 
-    coursesUrl: string = 'http://localhost:5000';
+    private coursesUrl: string = 'http://localhost:5000';
 
     constructor(private http: HttpClient) {}
 
