@@ -3,18 +3,17 @@
       <span>ProjectFullStack</span>
     </div>
     <div class="div-links">
-      <a (click)="doRedirect($event, '/')" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <a (click)="doRedirect($event, '/')" class="current-route">
         Home
       </a>
-      <a (click)="doRedirect($event, '/createcourse')" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <a (click)="doRedirect($event, '/createcourse')">
         Create course
       </a>
-      <a (click)="doRedirect($event, '/allcourses')"  mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <a (click)="doRedirect($event, '/allcourses')">
         All courses
       </a>
     </div>
     <div>
       <app-tooltip></app-tooltip>
     </div>
-    <p>current is {{currentRoute}}</p>
 </mat-toolbar>

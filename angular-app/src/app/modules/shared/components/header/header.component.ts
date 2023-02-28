@@ -1,7 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Router, Event as NavigationEvent, NavigationEnd, NavigationStart  } from '@angular/router';
-import { Location } from '@angular/common';
-
+import { Router, NavigationStart  } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -27,14 +25,17 @@ export class HeaderComponent implements OnDestroy {
         this.event$!.unsubscribe();
     }
 
-
-    ngAfterView() {
-
+    setCurrentUrlColor(event: any) {
+        const currentUrl = document.querySelector('.current-route');
+        currentUrl?.classList.toggle('current-route');
+        event.currentTarget.classList.toggle('current-route');
     }
 
-    doRedirect($event: Event, path: string) {
-        $event.stopPropagation();
+
+    doRedirect(event: Event, path: string) {
+        event.stopPropagation();
         this.router.navigate([path]);
+        this.setCurrentUrlColor(event);
     }
 
 }
