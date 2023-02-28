@@ -57,6 +57,7 @@ export class CreateCourseComponent {
     const people = document.querySelector('#people-update') as HTMLInputElement;
     const select = document.querySelector('#select') as HTMLSelectElement;
     const span = document.querySelector('#select-required') as HTMLSpanElement;
+    const homeUrl = document.querySelector('#home');
 
     this.selectValue = select.textContent?.toLowerCase();
 
@@ -68,8 +69,9 @@ export class CreateCourseComponent {
 
     const course = new CourseUpdate(_id, title.value, description.value, Number(people.value), this.selectValue)
     this.coursesService.updateCourse(course).subscribe(response => {
-      window.alert(response)
-      this.router.navigate(['/createcourse'])
+      window.alert(response);
+      this.router.navigate(['/']);
+      homeUrl!.classList.add('current-route');
       console.log(response);
     },
     (error) => {
