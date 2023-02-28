@@ -100,9 +100,12 @@ export class HomeComponent  {
 
     private onUpdate(rowId: any) {
         const updateBtn = document.querySelector('#update-btn')! as HTMLButtonElement;
+        const currentRouteColor = document.querySelector('.current-route')! as HTMLAnchorElement;
+
         updateBtn.addEventListener('click', (event: Event) => {
             event.stopPropagation();
             this.router.navigate([`/createcourse/${rowId._id.$oid}`]);
+            currentRouteColor.classList.remove('current-route');
         })
     }
 
