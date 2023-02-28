@@ -27,11 +27,11 @@ export class AllCoursesComponent implements OnInit {
         if(event.target.checked){
             this.favorites.push({id: course_id});
             this.saveFavoritesToStorage('favorites.courses');
-            this.favoritesService.setData(this.favorites.length);
+            this.favoritesService.setData(this.favorites);
         } else {
             this.unsaveFavorites(course_id);
             this.saveFavoritesToStorage('favorites.courses');
-            this.favoritesService.setData(this.favorites.length);
+            this.favoritesService.setData(this.favorites);
         }
     }
 
