@@ -36,9 +36,7 @@ export class CreateCourseComponent {
     const current = document.querySelector('.current-route');
     this.coursesService.postCourse(course).subscribe(response => {
       window.alert(response);
-      current?.classList.remove('current-route');
-      homeUrl?.classList.add('current-route');
-      this.router.navigate(['/']);
+      location.reload();
     },
     error => {
       window.alert(error.error.message);
@@ -60,7 +58,7 @@ export class CreateCourseComponent {
     const people = document.querySelector('#people-update') as HTMLInputElement;
     const select = document.querySelector('#select') as HTMLSelectElement;
     const span = document.querySelector('#select-required') as HTMLSpanElement;
-    const homeUrl = document.querySelector('#home');
+    const homeUrl = document.querySelector('.home');
 
     this.selectValue = select.textContent?.toLowerCase();
 
