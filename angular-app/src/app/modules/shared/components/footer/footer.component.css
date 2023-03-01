@@ -1,0 +1,8 @@
+footer {
+    background-color: whitesmoke;
+    color: rgba(0, 0, 0, 0.87);
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
