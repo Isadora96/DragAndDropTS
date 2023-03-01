@@ -88,12 +88,10 @@ export class HomeComponent  {
             subscribe(response => {
                 window.alert(response)
                 location.reload();
-                console.log(response);
             },
             error => {
                 window.alert('Something went wrong!')
                 location.reload();
-                console.log(error);
         })
 
     }
@@ -149,12 +147,10 @@ export class HomeComponent  {
                 this.checkStorage(rowId._id.$oid);
                 window.alert(response);
                 location.reload();
-                console.log(response);
             },
             error => {
                 window.alert('Something went wrong!')
                 location.reload();
-                console.log(error);
             })
         });
     }
