@@ -32,10 +32,13 @@ export class CreateCourseComponent {
       return
     }
     const course = new Course(this.title, this.description, this.people);
+    const homeUrl = document.querySelector('#home');
+    const current = document.querySelector('.current-route');
     this.coursesService.postCourse(course).subscribe(response => {
-      window.alert(response)
-      location.reload();
-      console.log(response);
+      window.alert(response);
+      current?.classList.remove('current-route');
+      homeUrl?.classList.add('current-route');
+      this.router.navigate(['/']);
     },
     error => {
       window.alert(error.error.message);
@@ -72,7 +75,6 @@ export class CreateCourseComponent {
       window.alert(response);
       this.router.navigate(['/']);
       homeUrl!.classList.add('current-route');
-      console.log(response);
     },
     (error) => {
       window.alert(error.error.message);
