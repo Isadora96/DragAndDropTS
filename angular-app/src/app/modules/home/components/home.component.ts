@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class HomeComponent  {
     displayedColumns: string[] = ['select', 'title', 'description', 'people', 'status', 'created_at']; 
     courses: any = [];  
+    activeCourses: any = [];
+    finishedCourses: any = [];
     selection = new SelectionModel<Course>(true, []);
     toggled: Boolean = false;
     setDisabled = false;
@@ -58,7 +60,8 @@ export class HomeComponent  {
     loadResults() {
         this.coursesService.getCourses().subscribe(data => {
             this.courses = data
-            if(this.courses.length < 1) this.setDisabled = true
+            this.activeCourses = this.courses.filter((ele: { status: string; }) => ele.status === 'active');
+            this.finishedCourses = this.courses.filter((ele: { status: string; }) => ele.status === 'finished');
         })
     }
 
@@ -83,8 +86,8 @@ export class HomeComponent  {
         this.setCloseModalId('#modalAll');
     }
 
-    deleteAll() {
-        this.coursesService.deleteAllCourses().
+    deleteActives() {
+        this.coursesService.deleteAllActiveCourses().
             subscribe(response => {
                 window.alert(response)
                 location.reload();
@@ -93,7 +96,18 @@ export class HomeComponent  {
                 window.alert('Something went wrong!')
                 location.reload();
         })
+    }
 
+    deleteFinished() {
+        this.coursesService.deleteAllFinshiedCourses().
+            subscribe(response => {
+                window.alert(response)
+                location.reload();
+            },
+            error => {
+                window.alert('Something went wrong!')
+                location.reload();
+        })
     }
 
     private onUpdate(rowId: any) {
@@ -142,7 +156,7 @@ export class HomeComponent  {
         const deleteBtn = document.querySelector('#delete-btn')! as HTMLButtonElement;
         deleteBtn.addEventListener('click', (event: Event) => {
             event.stopPropagation();
-            this.coursesService.deleteCourse(rowId._id.$oid).
+            this.coursesService.deleteSingleCourse(rowId._id.$oid).
             subscribe(response => {
                 this.checkStorage(rowId._id.$oid);
                 window.alert(response);
