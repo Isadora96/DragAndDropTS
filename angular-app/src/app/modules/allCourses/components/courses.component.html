@@ -7,7 +7,7 @@
               <mat-card-subtitle>{{course.title}}</mat-card-subtitle>
               <div class="position-absolute">
                 <label class="heart-checkbox">
-                <input type="checkbox" data-id="{{course._id.$oid}}" [checked]="isFavorite(course)" (change)="favorite($event)" aria-label="Example icon-button with heart icon">
+                <input type="checkbox" data-id="{{course._id.$oid}}" [checked]="isFavorite(course._id.$oid)" (change)="favorite($event)" aria-label="Example icon-button with heart icon">
                 <span class="heart favorite-icon-course"></span>  
                 </label>  
               </div>

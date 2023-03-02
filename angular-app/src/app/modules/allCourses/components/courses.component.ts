@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CoursesService } from 'src/app/modules/shared/services/courses.service';
 import { FavoritesService } from '../../shared/services/favorites.service';
 
@@ -44,14 +44,8 @@ export class AllCoursesComponent implements OnInit {
         this.favorites.splice(favorite_id?.indexOf(_id), 1);
     }
 
-    isFavorite(course: any) {
-        const favorites_id = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : [];
-        for (let i = 0; i < favorites_id!.length; i++) {
-            if (favorites_id![i].id === course._id.$oid) {
-                return true;
-            }
-        }
-        return false
+    isFavorite(id: any) {
+        return this.favorites!.some((ele: { id: any; }) => ele.id === id);
     }
 
 }
