@@ -13,5 +13,7 @@
 - Run `export $(cat .env | xargs)` in order to export the environment variables
 - Run `python -m server.api`
 
+For more information on how the api works click [here](https://github.com/Isadora96/FullStack-project/blob/main/server/README.md).
+
 ### On browser ###
 Open `http://localhost:4200` for angular.
