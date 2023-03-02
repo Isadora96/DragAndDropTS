@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { MatTableModule } from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import {MatTabsModule} from '@angular/material/tabs';
 @NgModule({
     declarations: [
         HomeComponent
@@ -13,6 +13,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
         HomeRoutingModule,
         MatTableModule,
         MatCheckboxModule,
+        MatTabsModule,
         CommonModule
     ],
     exports: [
