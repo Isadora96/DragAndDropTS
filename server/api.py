@@ -1,21 +1,21 @@
+import os
+
 from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 
-from server.route.active_project.active_project import ActiveProject
-from server.route.active_project.single_active_project import SingleActiveProject
-from server.route.finished_project.finished_project import FinishedProject
-from server.route.finished_project.finished_single_project import SingleFinishedProject
+from server.route.courses.courses import Courses
+from server.route.courses.single_course import SingleCourse
+from server.route.finished_courses.finished_courses import FinishedCourses
 
 
 APP = Flask(__name__)
 CORS(APP)
 API = Api(APP)
 
-API.add_resource(ActiveProject, '/active_project')
-API.add_resource(SingleActiveProject, '/active_project/<string:project_id>')
-API.add_resource(FinishedProject, '/finished_project')
-API.add_resource(SingleFinishedProject, '/finished_project/<string:project_id>')
+API.add_resource(Courses, '/courses')
+API.add_resource(SingleCourse, '/single_course/<string:project_id>')
+API.add_resource(FinishedCourses, '/finished_courses')
 
 
 if __name__ == '__main__':
