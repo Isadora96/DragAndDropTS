@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 
 export class HomeComponent  {
-    displayedColumns: string[] = ['select', 'title', 'description', 'people', 'status', 'created_at']; 
+    displayedColumns: string[] = ['select', 'title', 'description', 'people', 'status', 'created_at', 'author']; 
     courses: any = [];  
     activeCourses: any = [];
     finishedCourses: any = [];
