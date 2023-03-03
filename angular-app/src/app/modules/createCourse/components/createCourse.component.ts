@@ -14,11 +14,24 @@ export class CreateCourseComponent {
     title: string = '';
     description: string = '';
     people!: number;
+    author: string = '';
     course: any = [];
     isUpdate: Boolean = false;
     selectValue: any;
+    isDisabled: boolean = false;
 
-    constructor(private coursesService: CoursesService, private router: Router) { }
+    constructor(private coursesService: CoursesService, private router: Router) { 
+      let allCourses: any = [];
+      this.coursesService.getCourses().subscribe(data => {
+        allCourses = data
+        if(allCourses.length >= 10) {
+          const btnCreate = document.querySelector('#create-btn') as HTMLButtonElement;
+          this.isDisabled = true;
+          btnCreate?.classList.add('create-btn-disabled');
+          btnCreate?.setAttribute('title', 'To add a course please delete a least one!')
+        }
+      })
+    }
 
     ngOnInit() {
       if(this.router.url.includes('createcourse/')) {
@@ -28,12 +41,10 @@ export class CreateCourseComponent {
     }
 
   newCourse() {
-    if(!this.title || !this.description || !this.people) {
+    if(!this.title || !this.description || !this.people || !this.author) {
       return
     }
-    const course = new Course(this.title, this.description, this.people);
-    const homeUrl = document.querySelector('#home');
-    const current = document.querySelector('.current-route');
+    const course = new Course(this.author, this.title, this.description, this.people);
     this.coursesService.postCourse(course).subscribe(response => {
       window.alert(response);
       location.reload();
@@ -79,4 +90,5 @@ export class CreateCourseComponent {
     })
 
   }
+
 }

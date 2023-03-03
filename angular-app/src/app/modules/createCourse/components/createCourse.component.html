@@ -2,6 +2,7 @@
     <form class="example-form">
         <table class="example-full-width" cellspacing="0"><tr>
           <td><mat-form-field class="example-full-width">
+            <!-- Title -->
             <mat-label for="title">Course Title</mat-label>
             <input type="text" class="form-control" 
                    id="title" 
@@ -11,6 +12,7 @@
                    matInput 
                    *ngIf="!isUpdate"
                    placeholder="Ex. Typescript - zero to hero"
+                   [disabled]="isDisabled"
             >
             <input type="text" class="form-control" 
                     id="title-update" 
@@ -23,8 +25,9 @@
           </mat-form-field></td>
         </tr>
         </table>
-      
-        <p>
+        
+        <!-- Description -->
+        <div>
           <mat-form-field class="example-full-width">
             <mat-label for="description">Description</mat-label>
             <textarea type="text" 
@@ -35,6 +38,7 @@
                       placeholder="Ex. learning typescript" 
                       *ngIf="!isUpdate"
                       required
+                      [disabled]="isDisabled"
                       >
               </textarea>
               <textarea type="text" 
@@ -48,9 +52,10 @@
               >
               </textarea>
           </mat-form-field>
-        </p>
+        </div>
     <div class="display-flex-up">
-      <p>
+        <!-- People -->
+      <div>
           <mat-form-field class="example-half-width">
             <mat-label for="people">People</mat-label>
             <input type="number" 
@@ -62,6 +67,7 @@
                     placeholder="Ex. 50" 
                     required
                     *ngIf="!isUpdate"
+                    [disabled]="isDisabled"
             >
             <input type="number" 
                     min="1" 
@@ -74,9 +80,25 @@
                     value="{{course.people}}"
             >
           </mat-form-field>
-      </p>
-      
-      <p *ngIf="isUpdate">
+      </div>
+      <!-- Author -->
+      <div *ngIf="!isUpdate">
+        <mat-form-field class="example-full-width">
+          <mat-label for="author">Author</mat-label>
+          <input type="text" 
+                  id="author" 
+                  name="author" 
+                  [(ngModel)]="author" 
+                  matInput 
+                  placeholder="Your name" 
+                  required
+                  [disabled]="isDisabled"
+          >
+        </mat-form-field>
+      </div>
+      <!-- Update -->
+      <div *ngIf="isUpdate" class="display-column-reverse">
+        <span>Author: {{course.author}}</span>
         <mat-form-field appearance="fill" aria-required="true">
           <mat-label>Status</mat-label>
           <mat-select id="select">
@@ -85,10 +107,10 @@
           </mat-select>
         </mat-form-field>
         <span *ngIf="!selectValue" id="select-required"></span>
-    </p>
+      </div>
     </div>
-        <button type="submit" (click)="newCourse()" *ngIf="!isUpdate">Create</button>
-        <button type="submit" *ngIf="isUpdate" (click)="doUpdate($event)">Update</button>
+        <button type="submit" (click)="newCourse()" *ngIf="!isUpdate" [disabled]="isDisabled" id="create-btn" class="create-btn">Create</button>
+        <button type="submit" *ngIf="isUpdate" (click)="doUpdate($event)" class="create-btn">Update</button>
     </form>
 </div>
   

@@ -35,7 +35,13 @@ td {
     display: flex;
     justify-content: space-between;
 }
-  
+
+.display-column-reverse {
+    display: flex;
+    flex-direction: column-reverse;
+    text-align: end;
+}
+
 label {
     font-weight: bold;
     margin-bottom: 5px;
@@ -49,17 +55,27 @@ textarea {
     font-size: 16px;
   }
   
-button[type="submit"] {
+.create-btn {
     background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
+    margin-top: 10px;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-  }
+}
   
-button[type="submit"]:hover {
+.create-btn:hover {
     background-color: #0069d9;
-  }
-  
+}
+
+.create-btn-disabled {
+    cursor:help;
+    color: rgb(103, 102, 102);
+    background-color: rgb(208, 203, 203);
+}
+
+.create-btn-disabled:hover {
+    background-color:  rgb(208, 203, 203);
+}
