@@ -22,14 +22,14 @@ class Courses(Resource):
         title = project_info.get('title')
         description = project_info.get('description')
         people = project_info.get('people')
-        new_project = AddProject(title, description, people, 'active')
+        author = project_info.get('author')
+        new_project = AddProject(title, description, people, author, 'active')
         if not title or not description:
-            abort(400, 'Project title, description or people missing!')
+            abort(400, 'Project title, description, people or author missing!')
         elif people < 1:
             abort(400, 'Total people must be at least 1!')
-        elif len(project_info) > 3:
-            abort(400, 'Please, provide only project title, description and people!')
         db.project_active.insert_one({
+            "author": new_project.author,
             "title": new_project.title, 
             "description": new_project.description, 
             "people": new_project.people,
@@ -51,6 +51,7 @@ class Courses(Resource):
         if project and status and int(people) >= 1 and description and title:
             db.project_active.update_one({"_id": ObjectId(course_id)}, {
                 '$set': {
+                    'author': project.get('author'),
                     'title': title,
                     'description': description,
                     'people': int(people),
