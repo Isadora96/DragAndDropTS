@@ -13,11 +13,11 @@ import { Router } from '@angular/router';
 export class HomeComponent  {
     displayedColumns: string[] = ['select', 'title', 'description', 'people', 'status', 'created_at', 'author']; 
     courses: any = [];  
-    activeCourses: any = [];
-    finishedCourses: any = [];
+    activeCourses: object[] = [];
+    finishedCourses: object[] = [];
     selection = new SelectionModel<Course>(true, []);
-    toggled: Boolean = false;
-    setDisabled = false;
+    toggled: boolean = false;
+    setDisabled: boolean = false;
     
     constructor(private coursesService: CoursesService, private router: Router) { }
 

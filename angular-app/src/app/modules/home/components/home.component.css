@@ -149,3 +149,9 @@ table {
 .content-text {
     padding-left: 20px;
 }
+
+.total-span {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1rem;
+}

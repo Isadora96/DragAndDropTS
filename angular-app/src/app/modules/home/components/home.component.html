@@ -91,10 +91,11 @@
               <p id="all-selected">Delete the {{activeCourses.length}} courses selected!</p>
           </div>
           <div class="buttons">
-            <button class="delete-btn" id="delete-btn-all" (click)="deleteActives()">Delete All</button>
+            <button class="delete-btn" id="delete-btn-all" (click)="deleteActives()">Delete</button>
           </div>
         </div>
       </div>
+      <span class="total-span">total: {{activeCourses.length}}</span>
     </mat-tab>
 
     <!-- FINISHED -->
@@ -188,10 +189,11 @@
               <p id="all-selected">Delete the {{finishedCourses.length}} courses selected!</p>
           </div>
           <div class="buttons">
-            <button class="delete-btn" id="delete-btn-all" (click)="deleteFinished()">Delete All</button>
+            <button class="delete-btn" id="delete-btn-all" (click)="deleteFinished()">Delete</button>
           </div>
         </div>
       </div>
+      <span class="total-span">total: {{finishedCourses.length}}</span>
     </mat-tab>
 </mat-tab-group>
 </div>
