@@ -1,6 +1,7 @@
-.mat-mdc-card-avatar{
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+.avatar{
+    background-repeat: no-repeat;
     background-size: cover;
+    background-color: #D3D3D3; 
 }
 
 .example-card {
