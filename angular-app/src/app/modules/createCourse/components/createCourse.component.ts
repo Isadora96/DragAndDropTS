@@ -16,7 +16,7 @@ export class CreateCourseComponent {
     people!: number;
     author: string = '';
     course: any = [];
-    isUpdate: Boolean = false;
+    isUpdate: boolean = false;
     selectValue: any;
     isDisabled: boolean = false;
 
@@ -41,8 +41,15 @@ export class CreateCourseComponent {
     }
 
   newCourse() {
+    const hasSpace = /\s/.test(this.author);
+
     if(!this.title || !this.description || !this.people || !this.author) {
       return
+    }
+
+    if(!hasSpace) {
+      window.alert('Your name must have a lastname separeted with space!');
+      return;
     }
     const course = new Course(this.author, this.title, this.description, this.people);
     this.coursesService.postCourse(course).subscribe(response => {
