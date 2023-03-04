@@ -2,7 +2,7 @@
 
 Mini server-side application with python, flask and mongoDB. 
 
-Basic operations Create, Read, Update and Delete for a person selling courses. It is possible to include the title, description, how many people joined the course and its status.
+Basic operations Create, Read, Update and Delete for a person selling courses. It is possible to include the title, description, how many people joined and the author.
 
 
 ## Running locally
@@ -56,7 +56,8 @@ export $(cat .env | xargs)
 {
 	"title": "java for begginers",
 	"description": "java - from begging to advance",
-	"people": 1
+	"people": 1,
+	author": "my name"	
 }
 ```
 #### Updating a course
@@ -71,7 +72,7 @@ export $(cat .env | xargs)
 	"title": "js",
 	"description": "js - from begging to advance",
 	"people": 10,
-  "status": "finished"
+        "status": "finished"
 }
 ```
 
