@@ -54,7 +54,7 @@ export class CreateCourseComponent {
     }
     const course = new Course(this.author, this.title, this.description, this.people);
     this.coursesService.postCourse(course).subscribe(response => {
-      this.handleImageInput(response.split(':')[1]);
+      this.handleImageInput(response.split(':')[1].trim());
       window.alert(response.split('!')[0]);
       location.reload();
     },
@@ -90,6 +90,7 @@ export class CreateCourseComponent {
 
     const course = new CourseUpdate(_id, title.value, description.value, Number(people.value), this.selectValue)
     this.coursesService.updateCourse(course).subscribe(response => {
+      this.handleImageInput(_id)
       window.alert(response);
       this.router.navigate(['/']);
       homeUrl!.classList.add('current-route');
