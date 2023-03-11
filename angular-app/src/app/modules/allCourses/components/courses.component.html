@@ -12,7 +12,8 @@
                 </label>  
               </div>
             </mat-card-header>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            <img mat-card-image *ngIf="course.image_binary" src="{{course.image_binary}}" alt="course image">
+            <img class="image-default" mat-card-image *ngIf="!course.image_binary" src="https://media.istockphoto.com/id/1328208611/pt/vetorial/homework-assignment-concept-of-e-learning-online-education-home-schooling-web-courses.jpg?s=612x612&w=is&k=20&c=MBAhY0V2tQ_aw7lCYEk20dCtD8bAZ164wrRmEGl2mks=" alt="Photo of a Shiba Inu">
             <mat-card-content>
               <p>
                 {{course.description}}

@@ -13,10 +13,14 @@ export class AllCoursesComponent implements OnInit {
     courses: any = [];
     favorites: any = [];
 
-    constructor(private coursesService: CoursesService, private favoritesService: FavoritesService, private elementRef: ElementRef) {}
+    constructor(
+        private coursesService: CoursesService, 
+        private favoritesService: FavoritesService, 
+        private elementRef: ElementRef
+    ){}
     
     ngAfterViewChecked(): void {
-        this.setAvatarImage()
+        this.setAvatarImage();
     }
 
     setAvatarImage() {
@@ -38,7 +42,6 @@ export class AllCoursesComponent implements OnInit {
             ctx.textAlign="center";
             ctx.textBaseline="middle";
 
-
             ctx.fillText(letters.toUpperCase(), 100, 110); 
             const backgroundImageUrl = canvas.toDataURL();
             element.style.backgroundImage = `url(${backgroundImageUrl})`;
@@ -48,7 +51,7 @@ export class AllCoursesComponent implements OnInit {
     ngOnInit() {
         this.favorites = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : []
         this.coursesService.getCourses().subscribe(data => {
-            this.courses = data
+            this.courses = this.getImageData(data)
         });
     }
 
@@ -76,6 +79,24 @@ export class AllCoursesComponent implements OnInit {
 
     isFavorite(id: any) {
         return this.favorites!.some((ele: { id: any; }) => ele.id === id);
+    }
+
+    getImageData(_data: Object) {
+        this.coursesService.getFile().subscribe((file) => {
+            this.checkImage(file, _data)
+        })
+      }
+
+      checkImage(imageData: any, _data: Object) {
+        this.courses = _data
+        imageData.forEach((image: any) =>  {
+            this.courses.map((course: any) => {
+                if(course._id.$oid == image._id.trim()) {
+                    course['image_binary'] = image.image_binary
+                }
+                return course
+            })
+        })
     }
 
 }
