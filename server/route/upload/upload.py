@@ -1,11 +1,6 @@
 import json
-import base64
-import requests
-from PIL import Image
-from io import BytesIO
 
 from bson import json_util
-from bson.objectid import ObjectId
 from flask import Response, request
 from flask_restful import Resource
 from server.db.db import db
@@ -21,10 +16,17 @@ class UploadImage(Resource):
     def post():
         img_data = json.loads(request.data)
 
-        db.images.insert_one({
-            "_id": img_data.get('image_id'),
-            "image_binary": img_data.get('image_binary')
-        })
-        return Response(response=json.dumps('image added sucessfully!'), status=201)
+        img_data_id = db.images.find_one({"_id": img_data.get('image_id')})
 
-        
+        if(img_data_id):
+            db.images.update_one({"_id": img_data.get('image_id')}, {
+                '$set': {
+                    "image_binary": img_data.get('image_binary')
+                }
+            })
+        else:
+            db.images.insert_one({
+                "_id": img_data.get('image_id'),
+                "image_binary": img_data.get('image_binary')
+            })
+        return Response(response=json.dumps('image added sucessfully!'), status=201)
