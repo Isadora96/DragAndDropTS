@@ -95,6 +95,10 @@
                   [disabled]="isDisabled"
           >
         </mat-form-field>
+        <!-- <form action="/action_page.php"> -->
+          
+
+        <!-- </form> -->
       </div>
       <!-- Update -->
       <div *ngIf="isUpdate" class="display-column-reverse">
@@ -108,6 +112,11 @@
         </mat-form-field>
         <span *ngIf="!selectValue" id="select-required"></span>
       </div>
+    </div>
+    <!-- File -->
+    <div class="input-image">
+      <label for="myfile">Select a cover for your course:</label>
+      <input type="file" accept="image/*" id="myfile" name="myfile">
     </div>
         <button type="submit" (click)="newCourse()" *ngIf="!isUpdate" [disabled]="isDisabled" id="create-btn" class="create-btn">Create</button>
         <button type="submit" *ngIf="isUpdate" (click)="doUpdate($event)" class="create-btn">Update</button>

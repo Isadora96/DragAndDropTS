@@ -1,7 +1,8 @@
-import { Component, HostBinding, HostListener } from '@angular/core';
+import { Component, ElementRef, HostBinding, HostListener } from '@angular/core';
 import { CoursesService } from 'src/app/modules/shared/services/courses.service';
 import { Course, CourseUpdate } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-create-course',
@@ -20,7 +21,7 @@ export class CreateCourseComponent {
     selectValue: any;
     isDisabled: boolean = false;
 
-    constructor(private coursesService: CoursesService, private router: Router) { 
+    constructor(private coursesService: CoursesService, private router: Router, private http: HttpClient, private elementRef: ElementRef) { 
       let allCourses: any = [];
       this.coursesService.getCourses().subscribe(data => {
         allCourses = data
@@ -53,7 +54,8 @@ export class CreateCourseComponent {
     }
     const course = new Course(this.author, this.title, this.description, this.people);
     this.coursesService.postCourse(course).subscribe(response => {
-      window.alert(response);
+      this.handleImageInput(response.split(':')[1]);
+      window.alert(response.split('!')[0]);
       location.reload();
     },
     error => {
@@ -97,5 +99,30 @@ export class CreateCourseComponent {
     })
 
   }
+
+  handleImageInput(course_id: string) {
+    const inputFile = this.elementRef.nativeElement.querySelector('#myfile');
+    const fileToUpload = inputFile.files[0];
+    if(!fileToUpload) { return }
+    const reader = new FileReader();
+    const xhr = new XMLHttpRequest();
+
+
+    xhr.open(
+      "POST",
+      "http://localhost:8080/upload/file",
+      
+    );
+    xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8')
+    xhr.overrideMimeType("image/plain; charset=x-user-defined-binary");
+    reader.onload = (evt) => {
+      let params = {
+        "image_id": course_id,
+        "image_binary": evt.target?.result
+      }
+      xhr.send(JSON.stringify(params));
+    };
+    reader.readAsDataURL(fileToUpload)
+    }
 
 }
