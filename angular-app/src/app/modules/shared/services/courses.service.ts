@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Course, CourseUpdate } from "../models/course.model";
-// import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -16,6 +15,10 @@ export class CoursesService {
 
     getCourses() {
         return this.http.get(`${this.coursesUrl}/courses`);
+    }
+    
+    getFile() {
+        return this.http.get(`${this.coursesUrl}/upload/file`);
     }
 
     getSingleCourse(courseId: string) {
