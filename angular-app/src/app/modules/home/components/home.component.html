@@ -27,6 +27,7 @@
                           [disabled]="setDisabled"
                           >
             </mat-checkbox>
+            <!-- modal -->
             <div class="modal" id="modal">
               <div class="modal-content">
                 <span class="close-button" (click)="onCloseModal($event)">&times;</span>
@@ -85,10 +86,11 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <!-- modal delete all -->
         <div class="modal" id="modalAll">
           <div class="modal-content-all">
             <span class="close-button" (click)="onCloseModalAll($event)">&times;</span>
-              <p id="all-selected">Delete the {{activeCourses.length}} courses selected!</p>
+              <p id="all-selected">Delete the {{activeCourses.length}} course(s) selected!</p>
           </div>
           <div class="buttons">
             <button class="delete-btn" id="delete-btn-all" (click)="deleteActives()">Delete</button>
@@ -125,6 +127,7 @@
                           [disabled]="setDisabled"
                           >
             </mat-checkbox>
+            <!-- modal -->
             <div class="modal" id="modal">
               <div class="modal-content">
                 <span class="close-button" (click)="onCloseModal($event)">&times;</span>
@@ -183,10 +186,12 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+
+        <!-- modal delete all -->
         <div class="modal" id="modalAll">
           <div class="modal-content-all">
             <span class="close-button" (click)="onCloseModalAll($event)">&times;</span>
-              <p id="all-selected">Delete the {{finishedCourses.length}} courses selected!</p>
+              <p id="all-selected">Delete the {{finishedCourses.length}} course(s) selected!</p>
           </div>
           <div class="buttons">
             <button class="delete-btn" id="delete-btn-all" (click)="deleteFinished()">Delete</button>
