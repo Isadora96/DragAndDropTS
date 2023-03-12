@@ -51,7 +51,7 @@ export class AllCoursesComponent implements OnInit {
     ngOnInit() {
         this.favorites = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : []
         this.coursesService.getCourses().subscribe(data => {
-            this.courses = this.getImageData(data)
+           this.getImageData(data)
         });
     }
 
@@ -81,14 +81,15 @@ export class AllCoursesComponent implements OnInit {
         return this.favorites!.some((ele: { id: any; }) => ele.id === id);
     }
 
-    getImageData(_data: Object) {
-        this.coursesService.getFile().subscribe((file) => {
-            this.checkImage(file, _data)
+    getImageData(_coursesData: Object) {
+        this.coursesService.getFile().subscribe((imageData) => {
+            this.checkImage(imageData, _coursesData)
         })
-      }
+        return _coursesData
+    }
 
-      checkImage(imageData: any, _data: Object) {
-        this.courses = _data
+    checkImage(imageData: any, _coursesData: Object) {
+        this.courses = _coursesData
         imageData.forEach((image: any) =>  {
             this.courses.map((course: any) => {
                 if(course._id.$oid == image._id.trim()) {
