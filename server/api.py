@@ -9,6 +9,7 @@ from server.route.courses.courses import Courses
 from server.route.courses.single_course import SingleCourse
 from server.route.finished_courses.finished_courses import FinishedCourses
 from server.route.upload.upload import UploadImage
+from server.route.favorites.favorites import Favorites
 
 
 APP = Flask(__name__)
@@ -21,6 +22,7 @@ API.add_resource(Courses, '/courses')
 API.add_resource(SingleCourse, '/single_course/<string:project_id>')
 API.add_resource(FinishedCourses, '/finished_courses')
 API.add_resource(UploadImage, '/upload/file')
+API.add_resource(Favorites, '/favorites')
 
 
 
