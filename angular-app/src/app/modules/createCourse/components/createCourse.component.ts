@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, HostListener } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { CoursesService } from 'src/app/modules/shared/services/courses.service';
 import { Course, CourseUpdate } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
@@ -12,34 +12,34 @@ import { HttpClient } from '@angular/common/http';
 
 export class CreateCourseComponent {
 
-    title: string = '';
-    description: string = '';
-    people!: number;
-    author: string = '';
-    course: any = [];
-    isUpdate: boolean = false;
-    selectValue: any;
-    isDisabled: boolean = false;
+  title: string = '';
+  description: string = '';
+  people!: number;
+  author: string = '';
+  course: any = [];
+  isUpdate: boolean = false;
+  selectValue: any;
+  isDisabled: boolean = false;
 
-    constructor(private coursesService: CoursesService, private router: Router, private http: HttpClient, private elementRef: ElementRef) { 
-      let allCourses: any = [];
-      this.coursesService.getCourses().subscribe(data => {
-        allCourses = data
-        if(allCourses.length >= 10) {
-          const btnCreate = document.querySelector('#create-btn') as HTMLButtonElement;
-          this.isDisabled = true;
-          btnCreate?.classList.add('create-btn-disabled');
-          btnCreate?.setAttribute('title', 'To add a course please delete a least one!')
-        }
-      })
-    }
-
-    ngOnInit() {
-      if(this.router.url.includes('createcourse/')) {
-        this.isUpdate = true;
-        this.getSingleCourse();
+  constructor(private coursesService: CoursesService, private router: Router, private http: HttpClient, private elementRef: ElementRef) { 
+    let allCourses: any = [];
+    this.coursesService.getCourses().subscribe(data => {
+      allCourses = data
+      if(allCourses.length >= 10) {
+        const btnCreate = document.querySelector('#create-btn') as HTMLButtonElement;
+        this.isDisabled = true;
+        btnCreate?.classList.add('create-btn-disabled');
+        btnCreate?.setAttribute('title', 'To add a course please delete a least one!')
       }
+    })
+  }
+
+  ngOnInit() {
+    if(this.router.url.includes('createcourse/')) {
+      this.isUpdate = true;
+      this.getSingleCourse();
     }
+  }
 
   newCourse() {
     const hasSpace = /\s/.test(this.author);
@@ -124,6 +124,6 @@ export class CreateCourseComponent {
       xhr.send(JSON.stringify(params));
     };
     reader.readAsDataURL(fileToUpload)
-    }
+  }
 
 }
