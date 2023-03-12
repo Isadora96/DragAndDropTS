@@ -53,8 +53,9 @@ table {
 
 #modal, #modalAll {
     position: fixed;
-    top: 30%;
+    /* top: 30%; */
     left: 50%;
+    z-index: 1000;
     transform: translate(-50%, -50%);
     
 }
@@ -154,4 +155,10 @@ table {
     display: flex;
     justify-content: flex-end;
     padding-top: 1rem;
+}
+
+.image-home {
+    width: 350px;
+    object-fit: cover;
+    height: 300px;
 }

@@ -1,13 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CoursesService } from 'src/app/modules/shared/services/courses.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import { Course } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
+import { AllCoursesComponent } from '../../allCourses/components/courses.component';
+
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css']
+    styleUrls: ['./home.component.css'],
+    providers: [AllCoursesComponent]
 })
 
 export class HomeComponent  {
@@ -19,7 +22,7 @@ export class HomeComponent  {
     toggled: boolean = false;
     setDisabled: boolean = false;
     
-    constructor(private coursesService: CoursesService, private router: Router) { }
+    constructor(private coursesService: CoursesService, private router: Router, private allCourses: AllCoursesComponent) { }
 
 
     ngOnInit() {
@@ -59,7 +62,7 @@ export class HomeComponent  {
 
     loadResults() {
         this.coursesService.getCourses().subscribe(data => {
-            this.courses = data
+            this.courses = this.allCourses.getImageData(data)
             this.activeCourses = this.courses.filter((ele: { status: string; }) => ele.status === 'active');
             this.finishedCourses = this.courses.filter((ele: { status: string; }) => ele.status === 'finished');
         })
@@ -136,16 +139,20 @@ export class HomeComponent  {
         this.selection.clear();
     }
 
-    private setContent(rowId: any) {
+    private setContent(rowId: any) {        
         const title = document.querySelector('#title')! as HTMLElement;
         const description = document.querySelector('#description')! as HTMLParagraphElement;
         const people = document.querySelector('#people')! as HTMLParagraphElement;
         const status = document.querySelector('#status')! as HTMLParagraphElement;
+        const author = document.querySelector('#author')! as HTMLElement;
+        const image = document.querySelector('#image')! as HTMLImageElement;
 
         title.textContent = rowId.title
         description.textContent = rowId.description
         people.textContent = 'Joined : ' + rowId.people
         status.textContent = 'Status: ' + rowId.status
+        author.textContent = rowId.author
+        image.src = rowId.image_binary ? rowId.image_binary : "https://media.istockphoto.com/id/1328208611/pt/vetorial/homework-assignment-concept-of-e-learning-online-education-home-schooling-web-courses.jpg?s=612x612&w=is&k=20&c=MBAhY0V2tQ_aw7lCYEk20dCtD8bAZ164wrRmEGl2mks="
 
         this.onDelete(rowId);
         this.onUpdate(rowId);
