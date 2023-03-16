@@ -1,5 +1,7 @@
 # CRUD APP - Python, MongoDB and Angular
 
+This is a simple application with the purpose of putting into practice what I've been learning about the technologies involved in the project (python, mongodb and angular).
+
 ### On angular folder ###
 
 - Angular version 15.1.4.
