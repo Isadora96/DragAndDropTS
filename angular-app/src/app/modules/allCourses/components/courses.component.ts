@@ -12,6 +12,7 @@ export class AllCoursesComponent implements OnInit {
 
     courses: any = [];
     favorites: any = [];
+    favorite_storage: string[] = [];
 
     constructor(
         private coursesService: CoursesService, 
@@ -49,7 +50,10 @@ export class AllCoursesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.favorites = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : []
+        this.favorite_storage = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')!) : []
+        this.favoritesService.getFavorites().subscribe(data => {
+            this.favorites = data
+         });
         this.coursesService.getCourses().subscribe(data => {
            this.getImageData(data)
         });
@@ -57,28 +61,25 @@ export class AllCoursesComponent implements OnInit {
 
     favorite(event: any) {
         const course_id = event.target.id
+        this.favoritesService.postFavorites(course_id).subscribe();
         if(event.target.checked){
-            this.favorites.push({id: course_id});
-            this.saveFavoritesToStorage('favorites.courses');
-            this.favoritesService.setData(this.favorites);
+            this.favorite_storage.push(course_id)
+            localStorage.setItem('favorites', JSON.stringify(this.favorite_storage))
+            this.favoritesService.setData(this.favorite_storage);
         } else {
-            this.unsaveFavorites(course_id);
-            this.saveFavoritesToStorage('favorites.courses');
-            this.favoritesService.setData(this.favorites);
+            this.unsaveFavorites(course_id)
+            localStorage.setItem('favorites', JSON.stringify(this.favorite_storage))
+            this.favoritesService.setData(this.favorite_storage);
         }
     }
 
-    saveFavoritesToStorage(key: string) {
-        localStorage.setItem(key, JSON.stringify(this.favorites))
-    }
-
     unsaveFavorites(_id: string){
-        const favorite_id = JSON.parse(localStorage.getItem('favorites.courses')!);
-        this.favorites.splice(favorite_id?.indexOf(_id), 1);
+        const favorite_id = JSON.parse(localStorage.getItem('favorites')!);
+        this.favorite_storage.splice(favorite_id?.indexOf(_id), 1);
     }
 
     isFavorite(id: any) {
-        return this.favorites!.some((ele: { id: any; }) => ele.id === id);
+        return this.favorites!.some((ele: { _id: any; }) => ele._id === id);
     }
 
     getImageData(_coursesData: Object) {
