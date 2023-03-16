@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+
 export class FavoritesService {
-  private storaged = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : []
+
+  constructor(private http: HttpClient) {}
+
+  private coursesUrl: string = 'http://localhost:8080';
+  
+  private storaged = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')!) : []
   private data = new BehaviorSubject<Array<string>>(this.storaged);
 
   getData() {
@@ -14,5 +21,16 @@ export class FavoritesService {
 
   setData(arr: Array<string>) {
     this.data.next(arr);
+  }
+
+  getFavorites() {
+      return this.http.get(`${this.coursesUrl}/favorites`);
+  }
+
+  postFavorites(id: string) {
+      const headers = new HttpHeaders({
+          'Content-Type': 'application/json'
+        });
+      return this.http.post(`${this.coursesUrl}/favorites`, {'fav_id': id}, { headers }).pipe(map((result: any) => result));
   }
 }
