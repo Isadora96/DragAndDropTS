@@ -18,8 +18,11 @@ class SingleCourse(Resource):
     @staticmethod
     def delete(project_id:str):
         single_proj = db.project_active.find_one({"_id": ObjectId(project_id)})
+
         if single_proj:
             db.project_active.delete_one({"_id": ObjectId(project_id)})
+            db.images.delete_one({"_id": project_id})
+            db.favorites.delete_one({"_id": project_id})
             return Response(response=json.dumps('Project deleted sucessfully!'), status=202)
                
         return Response(response=json.dumps('That project does not exist'), status=404)

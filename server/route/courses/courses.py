@@ -1,5 +1,6 @@
 
 import json
+
 from bson import json_util
 from bson.objectid import ObjectId
 from flask import Response, request, abort
@@ -28,15 +29,15 @@ class Courses(Resource):
             abort(400, 'Project title, description, people or author missing!')
         elif people < 1:
             abort(400, 'Total people must be at least 1!')
-        db.project_active.insert_one({
+        course = db.project_active.insert_one({
             "author": new_project.author,
             "title": new_project.title, 
             "description": new_project.description, 
             "people": new_project.people,
             "status": new_project.status,
-            "created_at": new_project.created_at
+            "created_at": new_project.created_at,
             })
-        return Response(response=json.dumps('Project added sucessfully!'), status=201)
+        return Response(response=json.dumps(f'Project added sucessfully! Object_id: {course.inserted_id}'), status=201)
 
     @staticmethod
     def put():
@@ -66,10 +67,13 @@ class Courses(Resource):
 
     @staticmethod
     def delete():
-        active_proj = db.project_active.find({'status': 'active'})
-        has_project = json.loads(json_util.dumps(active_proj))
+        active_projs = db.project_active.find({'status': 'active'})
+        has_project = json.loads(json_util.dumps(active_projs))
         if not has_project:
             return Response(response=json.dumps('Nothing to delete!'), status=404)
         else:
+            for course in has_project:
+                db.favorites.find_one_and_delete({"_id": course.get('_id').get('$oid')})
+                db.images.find_one_and_delete({"_id": course.get('_id').get('$oid')})
             db.project_active.delete_many({'status': 'active'})
             return Response(response=json.dumps('All actives projects deleted sucessfully!'), status=202)
