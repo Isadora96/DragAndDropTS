@@ -29,12 +29,23 @@ export class HomeComponent  {
         this.loadResults();
     };
 
-    checkStorage(id: string) {
-        const favorites_id = localStorage.getItem('favorites.courses') ? JSON.parse(localStorage.getItem('favorites.courses')!) : []
-        for(let fav_id of favorites_id!) {
-            if(fav_id.id == id) {
-                favorites_id!.splice(favorites_id!.indexOf(id), 1);
-                localStorage.setItem('favorites.courses', JSON.stringify(favorites_id));
+    checkStorage(id: string | Array<any>) {
+        const favorites_id = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')!) : []
+        if(typeof(id) == 'string') {
+            for(let fav_id of favorites_id!) {
+                if(fav_id == id) {
+                    favorites_id!.splice(favorites_id!.indexOf(id), 1);
+                    localStorage.setItem('favorites', JSON.stringify(favorites_id));
+                }
+            }
+        } else {
+            const course_ids = id.map((course: { _id: { $oid: string; }; }) => course._id.$oid)
+                for(let course_id of course_ids) {
+                    let index = favorites_id!.indexOf(course_id)
+                    if(index >= 0) {
+                        favorites_id!.splice(favorites_id!.indexOf(course_id), 1);
+                        localStorage.setItem('favorites', JSON.stringify(favorites_id));
+                    }
             }
         }
     }
@@ -92,6 +103,7 @@ export class HomeComponent  {
     deleteActives() {
         this.coursesService.deleteAllActiveCourses().
             subscribe(response => {
+                this.checkStorage(this.activeCourses)
                 window.alert(response)
                 location.reload();
             },
@@ -104,6 +116,7 @@ export class HomeComponent  {
     deleteFinished() {
         this.coursesService.deleteAllFinshiedCourses().
             subscribe(response => {
+                this.checkStorage(this.finishedCourses)
                 window.alert(response)
                 location.reload();
             },
