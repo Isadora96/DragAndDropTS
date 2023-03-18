@@ -30,6 +30,7 @@ export class HomeComponent  {
     };
 
     checkStorage(id: string | Array<any>) {
+        console.log(id)
         const favorites_id = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')!) : []
         if(typeof(id) == 'string') {
             for(let fav_id of favorites_id!) {
