@@ -3,6 +3,7 @@ import { CoursesService } from 'src/app/modules/shared/services/courses.service'
 import { Course, CourseUpdate } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from "src/environments/environment";
 
 @Component({
     selector: 'app-create-course',
@@ -111,7 +112,7 @@ export class CreateCourseComponent {
 
     xhr.open(
       "POST",
-      "http://localhost:8080/upload/file",
+      `./api/upload/file`,
       
     );
     xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8')
