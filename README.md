@@ -13,7 +13,7 @@ This is a simple application with the purpose of putting into practice what I've
 - Python version 3.7.
 - Copy file `.env-example` into a `.env` file
 - Run `export $(cat .env | xargs)` in order to export the environment variables
-- Run `python -m server.api`
+- Run `python -m server.api.app`
 
 For more information on how the api works click [here](https://github.com/Isadora96/FullStack-project/blob/main/server/README.md).
 
