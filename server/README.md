@@ -31,10 +31,10 @@ export $(cat .env | xargs)
  To start the API in the terminal run the command: 
 
  ```sh 
- python -m server.api 
+ python -m server.api.app 
  ```
 
- - use this URL to send the requests: http://127.0.0.1:5000/ or http://localhost:5000/ )
+ - use this URL to send the requests: http://127.0.0.1:8080/ or http://localhost:8080/ )
 
 
 ## API Documentation
