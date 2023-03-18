@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node ./node_modules/@angular/cli/bin/ng serve --proxy-config proxy.conf.json",
+    "build": "ng build --configuration production --base-href ${ROOT:-/}",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

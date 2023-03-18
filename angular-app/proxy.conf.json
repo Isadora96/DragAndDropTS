@@ -1,0 +1,38 @@
+{
+    "/api/favorites": {
+      "target": "http://localhost:8080",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/api/upload/file": {
+      "target": "http://localhost:8080",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/api/courses": {
+      "target": "http://localhost:8080",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/api/single_course": {
+      "target": "http://localhost:8080",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/api/finished_courses": {
+      "target": "http://localhost:8080",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+}
+  
