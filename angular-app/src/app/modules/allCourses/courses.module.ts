@@ -4,6 +4,7 @@ import { AllCoursesComponent } from "./components/courses.component";
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
+import { LoadingModule } from '../shared/loading/loading.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {MatIconModule} from '@angular/material/icon';
         AllCoursesRoutingModule,
         CommonModule,
         MatCardModule,
-        MatIconModule
+        MatIconModule,
+        LoadingModule
     ],
     exports: [
         AllCoursesComponent
