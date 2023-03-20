@@ -2,6 +2,11 @@
 
 This is a simple application with the purpose of putting into practice what I've been learning about the technologies involved in the project (python, mongodb and angular).
 
+#### Live site click [here](https://fullstack-angular-python.netlify.app)!
+
+<img width="1437" alt="Captura de Tela 2023-03-20 às 19 22 18" src="https://user-images.githubusercontent.com/80006401/226478434-fd706bb8-47b4-45c7-914c-afce7c797862.png">
+
+
 ### On angular folder ###
 
 - Angular version 15.1.4.
