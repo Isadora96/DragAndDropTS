@@ -13,6 +13,7 @@ export class AllCoursesComponent implements OnInit {
     courses: any = [];
     favorites: any = [];
     favorite_storage: string[] = [];
+    isLoading: boolean = false;
 
     constructor(
         private coursesService: CoursesService, 
@@ -50,12 +51,13 @@ export class AllCoursesComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.isLoading = true;
         this.favorite_storage = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')!) : []
         this.favoritesService.getFavorites().subscribe(data => {
             this.favorites = data
          });
         this.coursesService.getCourses().subscribe(data => {
-           this.getImageData(data)
+           this.getImageData(data);
         });
     }
 
@@ -99,6 +101,7 @@ export class AllCoursesComponent implements OnInit {
                 return course
             })
         })
+        this.isLoading = false;
     }
 
 }
