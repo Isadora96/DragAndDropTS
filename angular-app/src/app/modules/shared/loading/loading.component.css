@@ -1,0 +1,8 @@
+.content {
+    justify-content: center;
+    display: flex;
+    z-index: 10000;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+}
