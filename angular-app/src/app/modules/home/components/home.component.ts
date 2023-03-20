@@ -21,16 +21,17 @@ export class HomeComponent  {
     selection = new SelectionModel<Course>(true, []);
     toggled: boolean = false;
     setDisabled: boolean = false;
+    isLoading: boolean = false;
     
     constructor(private coursesService: CoursesService, private router: Router, private allCourses: AllCoursesComponent) { }
 
 
     ngOnInit() {
+        this.isLoading = true;
         this.loadResults();
     };
 
     checkStorage(id: string | Array<any>) {
-        console.log(id)
         const favorites_id = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')!) : []
         if(typeof(id) == 'string') {
             for(let fav_id of favorites_id!) {
@@ -74,6 +75,7 @@ export class HomeComponent  {
 
     loadResults() {
         this.coursesService.getCourses().subscribe(data => {
+            this.isLoading = false;
             this.courses = this.allCourses.getImageData(data)
             this.activeCourses = this.courses.filter((ele: { status: string; }) => ele.status === 'active');
             this.finishedCourses = this.courses.filter((ele: { status: string; }) => ele.status === 'finished');
@@ -102,10 +104,13 @@ export class HomeComponent  {
     }
 
     deleteActives() {
+        this.isLoading = true;
         this.coursesService.deleteAllActiveCourses().
-            subscribe(response => {
-                this.checkStorage(this.activeCourses)
-                window.alert(response)
+            subscribe( 
+            response => {
+                this.checkStorage(this.activeCourses);
+                this.isLoading = false;
+                window.alert(response);
                 location.reload();
             },
             error => {
@@ -177,8 +182,10 @@ export class HomeComponent  {
         const deleteBtn = document.querySelector('#delete-btn')! as HTMLButtonElement;
         deleteBtn.addEventListener('click', (event: Event) => {
             event.stopPropagation();
+            this.isLoading = true;
             this.coursesService.deleteSingleCourse(rowId._id.$oid).
             subscribe(response => {
+                this.isLoading = false;
                 this.checkStorage(rowId._id.$oid);
                 window.alert(response);
                 location.reload();
