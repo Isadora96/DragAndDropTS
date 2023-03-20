@@ -122,4 +122,4 @@
         <button type="submit" *ngIf="isUpdate" (click)="doUpdate($event)" class="create-btn">Update</button>
     </form>
 </div>
-  
+<app-loading *ngIf="isLoading"></app-loading>   

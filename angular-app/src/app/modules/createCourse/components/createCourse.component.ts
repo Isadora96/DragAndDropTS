@@ -2,13 +2,13 @@ import { Component, ElementRef } from '@angular/core';
 import { CoursesService } from 'src/app/modules/shared/services/courses.service';
 import { Course, CourseUpdate } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { environment } from "src/environments/environment";
-
+import { environment } from 'src/environments/environment';
+import { LoadingComponent } from '../../shared/loading/loading.component';
 @Component({
     selector: 'app-create-course',
     templateUrl: './createCourse.component.html',
-    styleUrls: ['./createCourse.component.css']
+    styleUrls: ['./createCourse.component.css'],
+    providers: [LoadingComponent]
 })
 
 export class CreateCourseComponent {
@@ -21,8 +21,12 @@ export class CreateCourseComponent {
   isUpdate: boolean = false;
   selectValue: any;
   isDisabled: boolean = false;
+  isLoading: boolean = false;
 
-  constructor(private coursesService: CoursesService, private router: Router, private http: HttpClient, private elementRef: ElementRef) { 
+  constructor(private coursesService: CoursesService, private router: Router, 
+    private elementRef: ElementRef,
+    private loadingComponent: LoadingComponent
+    ) { 
     let allCourses: any = [];
     this.coursesService.getCourses().subscribe(data => {
       allCourses = data
@@ -54,14 +58,18 @@ export class CreateCourseComponent {
       return;
     }
     const course = new Course(this.author, this.title, this.description, this.people);
-    this.coursesService.postCourse(course).subscribe(response => {
-      this.handleImageInput(response.split(':')[1].trim());
-      window.alert(response.split('!')[0]);
-      location.reload();
-    },
+    this.isLoading = true;
+    this.coursesService.postCourse(course).subscribe(
+      (response) => {
+        this.handleImageInput(response.split(':')[1].trim());
+        this.isLoading = false;
+        window.alert(response.split('!')[0]);
+        location.reload();
+      },
     error => {
       window.alert(error.error.message);
-    })
+    }
+    )
   }
 
   getSingleCourse(){
@@ -90,8 +98,10 @@ export class CreateCourseComponent {
     }
 
     const course = new CourseUpdate(_id, title.value, description.value, Number(people.value), this.selectValue)
+    this.isLoading = true;
     this.coursesService.updateCourse(course).subscribe(response => {
       this.handleImageInput(_id)
+      this.isLoading = false;
       window.alert(response);
       this.router.navigate(['/']);
       homeUrl!.classList.add('current-route');
@@ -112,7 +122,7 @@ export class CreateCourseComponent {
 
     xhr.open(
       "POST",
-      `./api/upload/file`,
+      `${environment.serverApi}/upload/file`,
       
     );
     xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8')
