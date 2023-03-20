@@ -26,13 +26,13 @@ export class FavoritesService {
   }
 
   getFavorites() {
-      return this.http.get('./api/favorites');
+      return this.http.get(`${this.coursesUrl}/favorites`);
   }
 
   postFavorites(id: string) {
     const headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
-    return this.http.post('./api/favorites', {'fav_id': id}, { headers }).pipe(map((result: any) => result));
+    return this.http.post(`${this.coursesUrl}/favorites`, {'fav_id': id}, { headers }).pipe(map((result: any) => result));
   }
 }

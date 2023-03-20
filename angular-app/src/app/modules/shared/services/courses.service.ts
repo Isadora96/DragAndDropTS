@@ -15,37 +15,37 @@ export class CoursesService {
     constructor(private http: HttpClient) {}
 
     getCourses() {
-        return this.http.get('./api/courses');
+        return this.http.get(`${this.coursesUrl}/courses`);
     }
     
     getFile() {
-        return this.http.get('/api/upload/file');
+        return this.http.get(`${this.coursesUrl}/upload/file`);
     }
 
     getSingleCourse(courseId: string) {
-        return this.http.get(`./api/single_course/${courseId}`);
+        return this.http.get(`${this.coursesUrl}/single_course/${courseId}`);
     }
 
     postCourse(course: Course) {
-        return this.http.post('./api/courses', course , {	observe: 'body' }).pipe(map((result: any) => result));
+        return this.http.post(`${this.coursesUrl}/courses`, course , {	observe: 'body' }).pipe(map((result: any) => result));
     }
 
     deleteSingleCourse(courseId: string) {
-        return this.http.delete(`./api/single_course/${courseId}`).pipe(map((result: any) => result));
+        return this.http.delete(`${this.coursesUrl}/single_course/${courseId}`).pipe(map((result: any) => result));
     }
 
     deleteAllActiveCourses() {
-        return this.http.delete('./api/courses').pipe(map((result: any) => result));
+        return this.http.delete(`${this.coursesUrl}/courses`).pipe(map((result: any) => result));
     }
 
     deleteAllFinshiedCourses() {
-        return this.http.delete('./api/finished_courses').pipe(map((result: any) => result));
+        return this.http.delete(`${this.coursesUrl}/finished_courses`).pipe(map((result: any) => result));
     }
 
     updateCourse(course: CourseUpdate) {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json'
           });
-        return this.http.put('./api/courses', course, { headers }).pipe(map((result: any) => result));
+        return this.http.put(`${this.coursesUrl}/courses`, course, { headers }).pipe(map((result: any) => result));
     }
 }
