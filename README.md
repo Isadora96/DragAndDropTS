@@ -19,3 +19,6 @@ For more information on how the api works click [here](https://github.com/Isador
 
 ### On browser ###
 Open `http://localhost:4200` for angular.
+
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cf2a3e0a-bc10-4619-b0ec-eba7316d690a/deploy-status?branch=main)](https://app.netlify.com/sites/effervescent-bienenstitch-8e51a1/deploys)
