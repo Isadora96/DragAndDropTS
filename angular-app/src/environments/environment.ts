@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    serverApi: "$SERVER_API"
+    serverApi: "https://python-production-7f15.up.railway.app"
 };
