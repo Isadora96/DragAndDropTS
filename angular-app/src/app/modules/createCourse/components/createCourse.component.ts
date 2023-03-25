@@ -3,12 +3,10 @@ import { CoursesService } from 'src/app/modules/shared/services/courses.service'
 import { Course, CourseUpdate } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { LoadingComponent } from '../../shared/loading/loading.component';
 @Component({
     selector: 'app-create-course',
     templateUrl: './createCourse.component.html',
     styleUrls: ['./createCourse.component.css'],
-    providers: [LoadingComponent]
 })
 
 export class CreateCourseComponent {
@@ -23,10 +21,7 @@ export class CreateCourseComponent {
   isDisabled: boolean = false;
   isLoading: boolean = false;
 
-  constructor(private coursesService: CoursesService, private router: Router, 
-    private elementRef: ElementRef,
-    private loadingComponent: LoadingComponent
-    ) { 
+  constructor(private coursesService: CoursesService, private router: Router, private elementRef: ElementRef) { 
     let allCourses: any = [];
     this.coursesService.getCourses().subscribe(data => {
       allCourses = data
