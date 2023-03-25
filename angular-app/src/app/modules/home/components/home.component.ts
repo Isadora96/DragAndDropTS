@@ -4,13 +4,14 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { Course } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
 import { AllCoursesComponent } from '../../allCourses/components/courses.component';
+import { SnackBarComponent } from '../../shared/snackbar/snackbar.component';
 
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
-    providers: [AllCoursesComponent]
+    providers: [AllCoursesComponent, SnackBarComponent]
 })
 
 export class HomeComponent  {
@@ -23,7 +24,11 @@ export class HomeComponent  {
     setDisabled: boolean = false;
     isLoading: boolean = false;
     
-    constructor(private coursesService: CoursesService, private router: Router, private allCourses: AllCoursesComponent) { }
+    constructor(private coursesService: CoursesService, 
+        private router: Router, 
+        private allCourses: AllCoursesComponent,
+        private snackbar: SnackBarComponent
+    ) {}
 
 
     ngOnInit() {
@@ -107,24 +112,28 @@ export class HomeComponent  {
         this.isLoading = true;
         this.coursesService.deleteAllActiveCourses().
             subscribe( 
-            response => {
+            (response) => {
                 this.checkStorage(this.activeCourses);
                 this.isLoading = false;
-                window.alert(response);
-                location.reload();
+                this.snackbar.openSnackBar();
+                this.loadResults();
+                this.setCloseModalId('#modalAll');
             },
-            error => {
+            (error) => {
                 window.alert('Something went wrong!')
                 location.reload();
         })
     }
 
     deleteFinished() {
+        this.isLoading = true;
         this.coursesService.deleteAllFinshiedCourses().
             subscribe(response => {
-                this.checkStorage(this.finishedCourses)
-                window.alert(response)
-                location.reload();
+                this.checkStorage(this.finishedCourses);
+                this.isLoading = false;
+                this.snackbar.openSnackBar();
+                this.loadResults();
+                this.setCloseModalId('#modalAll');
             },
             error => {
                 window.alert('Something went wrong!')
@@ -187,8 +196,10 @@ export class HomeComponent  {
             subscribe(response => {
                 this.isLoading = false;
                 this.checkStorage(rowId._id.$oid);
-                window.alert(response);
-                location.reload();
+                this.snackbar.openSnackBar();
+                this.loadResults();
+                this.selection.clear()
+                this.setDisabled = false;
             },
             error => {
                 window.alert('Something went wrong!')
