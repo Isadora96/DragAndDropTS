@@ -3,10 +3,12 @@ import { CoursesService } from 'src/app/modules/shared/services/courses.service'
 import { Course, CourseUpdate } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { SnackBarComponent } from '../../shared/snackbar/snackbar.component';
 @Component({
     selector: 'app-create-course',
     templateUrl: './createCourse.component.html',
     styleUrls: ['./createCourse.component.css'],
+    providers: [SnackBarComponent]
 })
 
 export class CreateCourseComponent {
@@ -21,7 +23,7 @@ export class CreateCourseComponent {
   isDisabled: boolean = false;
   isLoading: boolean = false;
 
-  constructor(private coursesService: CoursesService, private router: Router, private elementRef: ElementRef) { 
+  constructor(private coursesService: CoursesService, private router: Router, private elementRef: ElementRef, private snackbar: SnackBarComponent) { 
     let allCourses: any = [];
     this.coursesService.getCourses().subscribe(data => {
       allCourses = data
@@ -58,10 +60,10 @@ export class CreateCourseComponent {
       (response) => {
         this.handleImageInput(response.split(':')[1].trim());
         this.isLoading = false;
-        window.alert(response.split('!')[0]);
-        location.reload();
+        this.snackbar.openSnackBar()
+        this.cleanFields();
       },
-    error => {
+    (error) => {
       window.alert(error.error.message);
     }
     )
@@ -96,8 +98,8 @@ export class CreateCourseComponent {
     this.isLoading = true;
     this.coursesService.updateCourse(course).subscribe(response => {
       this.handleImageInput(_id)
+      this.snackbar.openSnackBar();
       this.isLoading = false;
-      window.alert(response);
       this.router.navigate(['/']);
       homeUrl!.classList.add('current-route');
     },
@@ -132,4 +134,15 @@ export class CreateCourseComponent {
     reader.readAsDataURL(fileToUpload)
   }
 
+  cleanFields() {
+    const title = document.querySelector('#title') as HTMLInputElement;
+    const description = document.querySelector('#description') as HTMLInputElement;
+    const people = document.querySelector('#people') as HTMLInputElement;
+    const author = document.querySelector('#author') as HTMLInputElement;
+
+    title.value = ''
+    description.value = ''
+    people.value = ''
+    author.value = ''
+  }
 }
