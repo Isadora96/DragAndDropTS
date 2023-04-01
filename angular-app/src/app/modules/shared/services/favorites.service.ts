@@ -24,13 +24,13 @@ export class FavoritesService {
   }
 
   getFavorites() {
-      return this.http.get('./api/v1/favorites');
+      return this.http.get('./api/favorites');
   }
 
   postFavorites(id: string) {
     const headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
-    return this.http.post('./api/v1/favorites', {'fav_id': id}, { headers }).pipe(map((result: any) => result));
+    return this.http.post('./api/favorites', {'fav_id': id}, { headers }).pipe(map((result: any) => result));
   }
 }
