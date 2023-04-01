@@ -2,7 +2,6 @@ import { Component, ElementRef } from '@angular/core';
 import { CoursesService } from 'src/app/modules/shared/services/courses.service';
 import { Course, CourseUpdate } from '../../shared/models/course.model';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { SnackBarComponent } from '../../shared/snackbar/snackbar.component';
 @Component({
     selector: 'app-create-course',
@@ -119,7 +118,7 @@ export class CreateCourseComponent {
 
     xhr.open(
       "POST",
-      `${environment.serverApi}/upload/file`,
+      './api/v1/upload/file',
       
     );
     xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8')
