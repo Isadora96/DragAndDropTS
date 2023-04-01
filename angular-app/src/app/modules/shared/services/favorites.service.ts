@@ -11,8 +11,6 @@ import { environment } from "src/environments/environment";
 export class FavoritesService {
 
   constructor(private http: HttpClient) {}
-
-  private coursesUrl: string = environment.serverApi;
   
   private storaged = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites')!) : []
   private data = new BehaviorSubject<Array<string>>(this.storaged);
@@ -26,13 +24,13 @@ export class FavoritesService {
   }
 
   getFavorites() {
-      return this.http.get(`${this.coursesUrl}/favorites`);
+      return this.http.get('./api/v1/favorites');
   }
 
   postFavorites(id: string) {
     const headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
-    return this.http.post(`${this.coursesUrl}/favorites`, {'fav_id': id}, { headers }).pipe(map((result: any) => result));
+    return this.http.post('./api/v1/favorites', {'fav_id': id}, { headers }).pipe(map((result: any) => result));
   }
 }
