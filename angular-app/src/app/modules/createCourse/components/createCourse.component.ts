@@ -118,7 +118,7 @@ export class CreateCourseComponent {
 
     xhr.open(
       "POST",
-      './api/v1/upload/file',
+      './api/upload/file',
       
     );
     xhr.setRequestHeader('Content-type', 'application/json;charset=UTF-8')
