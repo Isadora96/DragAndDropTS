@@ -16,7 +16,7 @@ This is a simple application with the purpose of putting into practice what I've
 ### On server folder ###
 
 - Python version 3.7.
-- pip install -r requirements.txt
+- `pip install -r requirements.txt
 - Copy file `.env-example` into a `.env` file
 - Run `export $(cat .env | xargs)` in order to export the environment variables
 - Run `python -m server.api.app`
